@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { FormsModule } from '@angular/forms';
@@ -48,7 +47,7 @@ export class MedicamentosComponent {
     {
       nome: "Annita 20mg",
       imagem: "/medicamentos/Annita.png",
-      descricao: "remedi pa verme 👍",
+      descricao: "Antiparasitário de amplo espectro para tratamento de verminoses intestinais e giardíase.",
       preco: "R$ 15,90",
       precoAntigo: "",
       quantidade: 10,
@@ -56,7 +55,7 @@ export class MedicamentosComponent {
       desconto: 0,
       tipo: "Genéricos",
       categoria: "Medicamentos",
-      palavrasChave: ["annita", "verme", "antiparasitario"]
+      palavrasChave: ["annita", "verme", "antiparasitario", "giardíase", "verminose", "intestinal"]
     },
     {
       nome: "Paracetamol 500mg",
