@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 
 * {
   margin: 0;
@@ -8,7 +8,6 @@
 }
 
 body {
-  font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   color: #334155;
   line-height: 1.6;
@@ -24,985 +23,1131 @@ body {
   padding: 16px 30px;
   color: white;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  /* Importo a fonte Inter do Google Fonts, com várias espessuras para tipografia flexível. */
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-  /* Reset básico para remover margens/paddings padrões e usar box-sizing mais previsível. */
-  * {
-    margin: 0; /* Remove margens padrão. */
-    padding: 0; /* Remove paddings padrão. */
-    box-sizing: border-box; /* Inclui bordas e paddings no cálculo da largura/altura. */
-  }
-
-  /* Corpo da página com tipografia e fundo em gradiente suave. */
-  body {
-    font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Define a família de fontes com fallback. */
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); /* Gradiente claro para o fundo. */
-    color: #334155; /* Cor base do texto (slate-700). */
-    line-height: 1.6; /* Altura de linha agradável para leitura. */
-  }
-
-  /* Barra de navegação fixa no topo com gradiente e sombra. */
-  .barra-navegacao {
-    position: sticky; /* Fica colada no topo ao rolar. */
-    top: 0; /* Posição referência para o sticky. */
-    display: flex; /* Layout flex para organizar conteúdos. */
-    justify-content: space-between; /* Espaça logo, busca e ações. */
-    align-items: center; /* Centraliza verticalmente. */
-    background: linear-gradient(135deg, #007ad9 0%, #005fa3 100%); /* Gradiente azul da marca. */
-    padding: 16px 30px; /* Espaçamento interno da barra. */
-    color: white; /* Texto/ícones brancos. */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Sombra para profundidade. */
-    z-index: 100; /* Fica acima dos conteúdos. */
-    border-bottom: 3px solid #2196f3; /* Linha inferior azul vibrante. */
-  }
-
-  /* Região da logo com alinhamento horizontal. */
-  .secao-logo .container-logo {
-    display: flex; /* Alinha ícone e texto lado a lado. */
-    align-items: center; /* Centraliza verticalmente. */
-    gap: 12px; /* Espaço entre ícone e título. */
-  }
-
-  /* Ícone da logo em tamanho maior e cor azul. */
-  .icone-logo {
-    font-size: 2rem; /* Tamanho do ícone. */
-    color: #2196f3; /* Azul de destaque. */
-  }
-
-  /* Título da marca com peso e sombra leve. */
-  .container-logo h1 {
-    font-size: 1.8rem; /* Tamanho do título. */
-    font-weight: 700; /* Negrito forte. */
-    color: white; /* Cor branca para contraste. */
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra de texto discreta. */
-  }
-
-  /* Seção central com a barra de busca. */
-  .secao-busca {
-    flex: 1; /* Ocupa o espaço disponível entre logo e ações. */
-    display: flex; /* Flex para centralizar o container de busca. */
-    justify-content: center; /* Centraliza horizontalmente. */
-    margin: 0 30px; /* Respiro nas laterais. */
-  }
-
-  /* Container do input de busca com posição relativa para ícones. */
-  .container-busca {
-    position: relative; /* Necessário para posicionar ícones absolutos dentro. */
-    width: 400px; /* Largura padrão da busca. */
-    max-width: 100%; /* Não ultrapassa a largura disponível em telas menores. */
-  }
-
-  /* Ícone de lupa posicionado dentro do input. */
-  .icone-busca {
-    position: absolute; /* Fica dentro do container-busca, sobre o input. */
-    left: 15px; /* Espaçamento à esquerda. */
-    top: 50%; /* Centraliza verticalmente. */
-    transform: translateY(-50%); /* Ajuste fino da centralização vertical. */
-    color: #64748b; /* Cor da lupa (slate-500). */
-    z-index: 2; /* Acima do input. */
-  }
-
-  /* Estilo do campo de busca com padding para acomodar ícones. */
-  .container-busca input {
-    width: 100%; /* O input ocupa toda a largura do container. */
-    padding: 12px 50px 12px 45px; /* Espaço para ícone à esquerda e botão à direita. */
-    border-radius: 25px; /* Bordas arredondadas estilo “pill”. */
-    border: 2px solid rgba(255, 255, 255, 0.2); /* Borda clara quase invisível. */
-    background: rgba(255, 255, 255, 0.95); /* Fundo branco translúcido. */
-    color: #334155; /* Cor do texto digitado. */
-    font-size: 16px; /* Tamanho do texto. */
-    transition: all 0.3s ease; /* Transição suave para hover/focus. */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra leve para destacar. */
-  }
-
-  /* Botão circular para limpar o campo de busca. */
-  .limpar-busca {
-    position: absolute; /* Posicionado sobre o input no canto direito. */
-    right: 15px; /* Fica encostado à direita do input. */
-    top: 50%; /* Centraliza verticalmente. */
-    transform: translateY(-50%); /* Ajuste da centralização vertical. */
-    background: #f1f5f9; /* Fundo cinza clarinho. */
-    border: 2px solid #e2e8f0; /* Borda sutil. */
-    color: #64748b; /* Cor do ícone de limpar. */
-    cursor: pointer; /* Indica que é clicável. */
-    padding: 8px; /* Tamanho do botão. */
-    border-radius: 50%; /* Torna o botão circular. */
-    transition: all 0.3s ease; /* Animações suaves de hover/active. */
-    width: 32px; /* Largura fixa para manter formato. */
-    height: 32px; /* Altura fixa para manter formato. */
-    display: flex; /* Centraliza o ícone dentro. */
-    align-items: center; /* Alinhamento vertical do ícone. */
-    justify-content: center; /* Alinhamento horizontal do ícone. */
-    font-size: 14px; /* Tamanho do ícone/texto. */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra leve. */
-  }
-
-  /* Efeito ao passar o mouse: botão fica vermelho para chamar atenção. */
-  .limpar-busca:hover {
-    background: #ef4444; /* Fundo vermelho de alerta. */
-    color: white; /* Ícone/texto branco para contraste. */
-    border-color: #ef4444; /* Borda acompanha o fundo. */
-    transform: translateY(-50%) scale(1.1); /* Cresce um pouco no hover. */
-    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3); /* Sombra mais forte vermelha. */
-  }
-
-  /* Efeito ao clicar: botão dá uma encolhida rápida. */
-  .limpar-busca:active {
-    transform: translateY(-50%) scale(0.95); /* Reduz levemente no click. */
-  }
-
-  /* Acessibilidade: foco com anel azul ao redor do botão. */
-  .limpar-busca:focus {
-    outline: none; /* Remove o outline padrão do navegador. */
-    border-color: #2196f3; /* Borda azul ao focar. */
-    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2); /* Halo azul translúcido. */
-  }
-
-  /* Versão mais chamativa do botão de limpar (promocional/destaque). */
-  .limpar-busca.prominente {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); /* Gradiente vermelho. */
-    color: white; /* Texto branco. */
-    border: none; /* Sem borda para visual mais limpo. */
-    box-shadow: 0 3px 12px rgba(239, 68, 68, 0.4); /* Sombra mais forte. */
-  }
-
-  /* Hover da versão destacada do botão de limpar. */
-  .limpar-busca.prominente:hover {
-    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); /* Gradiente mais escuro no hover. */
-    transform: translateY(-50%) scale(1.1); /* Cresce levemente. */
-    box-shadow: 0 5px 20px rgba(239, 68, 68, 0.5); /* Sombra mais pronunciada. */
-  }
-
-  /* Caixa com sugestões de busca abaixo do input. */
-  .sugestoes-busca {
-    position: absolute; /* Aparece sobre o conteúdo logo abaixo do input. */
-    top: 100%; /* Encosta logo abaixo do container de busca. */
-    left: 0; /* Alinha à esquerda. */
-    right: 0; /* E à direita também (ocupa toda a largura). */
-    background: white; /* Fundo branco para legibilidade. */
-    border-radius: 15px; /* Bordas arredondadas. */
-    padding: 20px; /* Espaçamento interno. */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Sombra para destacar. */
-    z-index: 10; /* Fica acima de outros elementos. */
-    margin-top: 10px; /* Pequeno espaçamento do input. */
-  }
-
-  /* Lista de chips/tags de sugestões. */
-  .lista-sugestoes {
-    display: flex; /* Exibe em linha com wrap. */
-    gap: 10px; /* Espaço entre os itens. */
-    align-items: center; /* Alinha verticalmente os chips. */
-    flex-wrap: wrap; /* Permite quebrar linha se necessário. */
-    margin-top: 10px; /* Espaço acima da lista. */
-  }
-
-  /* Botão/Chip de sugestão clicável. */
-  .botao-sugestao {
-    background: #f1f5f9; /* Fundo cinza claro. */
-    border: 1px solid #e2e8f0; /* Borda sutil. */
-    color: #475569; /* Texto cinza escuro. */
-    padding: 8px 15px; /* Espaçamento interno do chip. */
-    border-radius: 20px; /* Forma arredondada do chip. */
-    cursor: pointer; /* Indica que é clicável. */
-    transition: all 0.3s ease; /* Transição suave. */
-    font-size: 14px; /* Tamanho do texto. */
-  }
-
-  /* Hover do chip de sugestão: vira azul. */
-  .botao-sugestao:hover {
-    background: #2196f3; /* Fundo azul. */
-    color: white; /* Texto branco para contraste. */
-    border-color: #2196f3; /* Borda azul. */
-  }
-
-  /* Container com botões/ações na barra de navegação (ex.: carrinho). */
-  .botoes-navegacao {
-    display: flex; /* Exibe botões em linha. */
-    align-items: center; /* Alinha verticalmente. */
-    gap: 15px; /* Espaço entre botões. */
-  }
-
-  /* Botão estilizado da barra de navegação. */
-  .botao-nav {
-    cursor: pointer; /* Mostra que é clicável. */
-    display: flex; /* Conteúdo interno em linha. */
-    align-items: center; /* Alinha verticalmente. */
-    gap: 8px; /* Espaçamento entre ícone e texto. */
-    background: linear-gradient(135deg, #005fa3 0%, #003f73 100%); /* Gradiente azul escuro. */
-    padding: 12px 20px; /* Tamanho do botão. */
-    border-radius: 25px; /* Bordas arredondadas. */
-    transition: all 0.3s ease; /* Animação suave. */
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Sombra leve. */
-    font-weight: 500; /* Peso médio para o texto. */
-    position: relative; /* Necessário para posicionar selo do carrinho. */
-  }
-
-  /* Efeito hover do botão da barra. */
-  .botao-nav:hover {
-    background: linear-gradient(135deg, #003f73 0%, #002952 100%); /* Gradiente mais escuro no hover. */
-    transform: translateY(-2px); /* Sobe levemente. */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Sombra maior no hover. */
-  }
-
-  /* Badge/Selo redondo que mostra quantidade no carrinho. */
-  .selo-carrinho {
-    position: absolute; /* Posicionado relativo ao botão. */
-    top: -8px; /* Fica um pouco acima. */
-    right: -8px; /* E à direita do botão. */
-    background: #ef4444; /* Fundo vermelho. */
-    color: white; /* Texto branco. */
-    border-radius: 50%; /* Forma circular. */
-    width: 24px; /* Largura fixa. */
-    height: 24px; /* Altura fixa. */
-    display: flex; /* Centraliza o conteúdo. */
-    align-items: center; /* Centraliza verticalmente. */
-    justify-content: center; /* Centraliza horizontalmente. */
-    font-size: 12px; /* Tamanho do número. */
-    font-weight: 600; /* Peso para legibilidade. */
-  }
-
-  /* Fundo escuro translúcido da modal de carrinho. */
-  .modal {
-    position: fixed; /* Fixa sobre toda a janela. */
-    top: 0; /* Encosta no topo. */
-    left: 0; /* Encosta à esquerda. */
-    width: 100%; /* Ocupa toda a largura. */
-    height: 100%; /* Ocupa toda a altura. */
-    background-color: rgba(0, 0, 0, 0.8); /* Fundo preto translúcido. */
-    display: flex; /* Alinha o conteúdo modal ao centro. */
-    align-items: center; /* Centraliza verticalmente. */
-    justify-content: center; /* Centraliza horizontalmente. */
-    z-index: 1000; /* Acima da barra de navegação. */
-    backdrop-filter: blur(5px); /* Blur do plano de fundo para foco na modal. */
-  }
-
-  /* Caixa branca da modal de carrinho. */
-  .conteudo-modal {
-    background: white; /* Fundo branco para conteúdo. */
-    padding: 0; /* Sem padding externo; o conteúdo interno define. */
-    border-radius: 20px; /* Bordas arredondadas. */
-    width: 500px; /* Largura padrão. */
-    max-width: 90%; /* Responsivo em telas pequenas. */
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3); /* Sombra forte. */
-    border: 1px solid #e2e8f0; /* Borda sutil. */
-    overflow: hidden; /* Esconde transbordos (imagens etc.). */
-  }
-
-  /* Cabeçalho colorido da modal de carrinho. */
-  .cabecalho-modal {
-    display: flex; /* Layout em linha. */
-    justify-content: space-between; /* Título à esquerda, fechar à direita. */
-    align-items: center; /* Alinhamento vertical central. */
-    padding: 20px 30px; /* Espaçamento interno. */
-    background: linear-gradient(135deg, #007ad9 0%, #005fa3 100%); /* Gradiente azul. */
-    color: white; /* Texto branco. */
-  }
-
-  /* Título do cabeçalho da modal com ícone opcional. */
-  .cabecalho-modal h3 {
-    display: flex; /* Ícone + texto lado a lado. */
-    align-items: center; /* Centraliza verticalmente. */
-    gap: 10px; /* Espaço entre ícone e texto. */
-    margin: 0; /* Remove margens padrão. */
-    font-size: 1.3rem; /* Tamanho do título. */
-    font-weight: 600; /* Peso médio/forte. */
-  }
-
-  /* Botão de fechar da modal. */
-  .botao-fechar {
-    background: none; /* Sem fundo para parecer ícone. */
-    border: none; /* Sem borda. */
-    color: white; /* Ícone/texto branco. */
-    font-size: 1.2rem; /* Tamanho do ícone. */
-    cursor: pointer; /* Indicador de clique. */
-    padding: 5px; /* Área clicável. */
-    border-radius: 50%; /* Forma arredondada. */
-    transition: background 0.3s ease; /* Animação suave no hover. */
-  }
-
-  /* Hover do botão de fechar: leve destaque. */
-  .botao-fechar:hover {
-    background: rgba(255, 255, 255, 0.2); /* Fundo branco translúcido ao passar o mouse. */
-  }
-
-  /* Área rolável com itens do carrinho. */
-  .itens-carrinho {
-    padding: 20px 30px; /* Espaçamento interno. */
-    max-height: 400px; /* Limita altura e ativa scroll. */
-    overflow-y: auto; /* Permite rolar verticalmente. */
-  }
-
-  /* Linha de item do carrinho com nome, quantidade e ações. */
-  .item-carrinho {
-    display: flex; /* Distribui info e ações em linha. */
-    justify-content: space-between; /* Espaça nome e ações nas extremidades. */
-    align-items: center; /* Centraliza verticalmente. */
-    padding: 15px 0; /* Espaçamento vertical. */
-    border-bottom: 1px solid #e2e8f0; /* Divisor sutil entre itens. */
-  }
-
-  /* Título do produto dentro do carrinho. */
-  .info-item h4 {
-    color: #005fa3; /* Azul escuro. */
-    margin-bottom: 5px; /* Espaço abaixo do título. */
-    font-weight: 600; /* Peso médio/forte. */
-  }
-
-  /* Texto de quantidade/variações do item. */
-  .quantidade-item {
-    color: #64748b; /* Cinza médio. */
-    font-size: 14px; /* Tamanho de fonte menor. */
-  }
-
-  /* Botão vermelho para remover item do carrinho. */
-  .botao-remover {
-    background: #ef4444; /* Fundo vermelho. */
-    border: none; /* Sem borda. */
-    color: white; /* Texto branco. */
-    padding: 8px 12px; /* Tamanho do botão. */
-    border-radius: 8px; /* Bordas arredondadas. */
-    cursor: pointer; /* Indicador de clique. */
-    transition: all 0.3s ease; /* Animação suave. */
-  }
-
-  /* Hover do botão remover: vermelho mais escuro e leve zoom. */
-  .botao-remover:hover {
-    background: #dc2626; /* Vermelho mais escuro no hover. */
-    transform: scale(1.05); /* Cresce um pouco para destacar. */
-  }
-
-  /* Estado do carrinho vazio centralizado. */
-  .carrinho-vazio {
-    text-align: center; /* Centraliza o texto. */
-    padding: 40px 20px; /* Espaçamento confortável. */
-    color: #64748b; /* Texto cinza médio. */
-  }
-
-  /* Ícone grande para reforçar visualmente o estado vazio. */
-  .icone-vazio {
-    font-size: 3rem; /* Ícone grande. */
-    margin-bottom: 15px; /* Espaço abaixo do ícone. */
-    opacity: 0.5; /* Mais translúcido para não competir com o texto. */
-  }
-
-  /* Rodapé da modal com botões de ação (continuar, finalizar...). */
-  .rodape-modal {
-    display: flex; /* Botões em linha. */
-    gap: 15px; /* Espaço entre botões. */
-    padding: 20px 30px; /* Espaçamento interno. */
-    background: #f8fafc; /* Fundo cinza muito claro. */
-    border-top: 1px solid #e2e8f0; /* Linha superior separadora. */
-  }
-
-  /* Seção hero/cabeçalho principal da página. */
-  .cabecalho-principal {
-    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%); /* Gradiente claro. */
-    padding: 60px 20px; /* Espaçamento generoso. */
-    border-bottom: 1px solid #e2e8f0; /* Linha inferior sutil. */
-  }
-
-  /* Container do conteúdo do cabeçalho com largura máxima. */
-  .conteudo-cabecalho {
-    max-width: 1200px; /* Limita a largura para leitura. */
-    margin: 0 auto; /* Centraliza horizontalmente. */
-    text-align: center; /* Centraliza textos. */
-  }
-
-  /* Título principal da página. */
-  .texto-cabecalho h1 {
-    color: #007ad9; /* Azul da marca. */
-    margin-bottom: 15px; /* Espaço abaixo do título. */
-    font-size: 3rem; /* Tamanho grande. */
-    font-weight: 700; /* Peso forte. */
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave do texto. */
-  }
-
-  /* Subtítulo/descrição no cabeçalho. */
-  .texto-cabecalho p {
-    font-size: 20px; /* Tamanho confortável. */
-    color: #64748b; /* Cinza médio. */
-    max-width: 600px; /* Limita largura da linha. */
-    margin: 0 auto 40px; /* Centraliza e adiciona espaço abaixo. */
-  }
-
-  /* Lista de recursos/benefícios com ícones. */
-  .recursos-cabecalho {
-    display: flex; /* Alinha em linha. */
-    justify-content: center; /* Centraliza horizontalmente. */
-    gap: 40px; /* Espaço entre itens. */
-    flex-wrap: wrap; /* Permite quebrar linha em telas menores. */
-  }
-
-  /* Cada recurso individual (ícone + texto). */
-  .recurso {
-    display: flex; /* Layout em coluna. */
-    flex-direction: column; /* Ícone acima, texto abaixo. */
-    align-items: center; /* Centraliza verticalmente. */
-    gap: 10px; /* Espaço entre ícone e texto. */
-    color: #005fa3; /* Cor do texto. */
-  }
-
-  /* Ícone do recurso em destaque azul. */
-  .recurso i {
-    font-size: 2rem; /* Tamanho do ícone. */
-    color: #2196f3; /* Azul vibrante. */
-  }
-
-  /* Texto do recurso com ênfase. */
-  .recurso span {
-    font-weight: 600; /* Peso médio/forte. */
-  }
-
-  /* Seção de categorias (chips de categorias). */
-  .categorias {
-    padding: 60px 20px; /* Espaçamento interno. */
-    background: white; /* Fundo branco. */
-  }
-
-  /* Título da seção de categorias. */
-  .categorias h2 {
-    text-align: center; /* Centralizado. */
-    color: #005fa3; /* Azul escuro. */
-    margin-bottom: 40px; /* Espaço abaixo. */
-    font-size: 2.2rem; /* Tamanho grande. */
-    font-weight: 700; /* Peso forte. */
-  }
-
-  /* Grid responsivo das categorias. */
-  .grade-categoria {
-    display: grid; /* Layout em grid. */
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Colunas auto-ajustáveis. */
-    gap: 20px; /* Espaço entre cards. */
-    max-width: 800px; /* Largura máxima. */
-    margin: 0 auto; /* Centraliza o grid. */
-  }
-
-  /* Card de categoria clicável. */
-  .item-categoria {
-    display: flex; /* Layout interno em coluna. */
-    flex-direction: column; /* Ícone acima, texto abaixo. */
-    align-items: center; /* Centraliza conteúdo. */
-    padding: 30px 20px; /* Espaçamento interno. */
-    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); /* Gradiente azul claro. */
-    border-radius: 15px; /* Bordas arredondadas. */
-    border: 2px solid #90caf9; /* Borda azul clara. */
-    cursor: pointer; /* Indica clique. */
-    transition: all 0.3s ease; /* Animação suave. */
-  }
-
-  /* Efeito hover no card de categoria. */
-  .item-categoria:hover {
-    transform: translateY(-5px); /* Sobe levemente. */
-    box-shadow: 0 10px 30px rgba(33, 150, 243, 0.2); /* Sombra azul. */
-    border-color: #2196f3; /* Borda azul mais forte. */
-  }
-
-  /* Ícone do card de categoria. */
-  .item-categoria i {
-    font-size: 2.5rem; /* Ícone grande. */
-    color: #2196f3; /* Azul vibrante. */
-    margin-bottom: 15px; /* Espaço abaixo do ícone. */
-  }
-
-  /* Texto do card de categoria. */
-  .item-categoria span {
-    color: #005fa3; /* Azul escuro. */
-    font-weight: 600; /* Destaque no texto. */
-    font-size: 16px; /* Tamanho do texto. */
-  }
-
-  /* Seção com banner de promoções. */
-  .promocoes {
-    padding: 40px 20px; /* Espaçamento. */
-    background: linear-gradient(135deg, #e8f4f8 0%, #d1ecf1 100%); /* Gradiente claro. */
-  }
-
-  /* Container do banner promocional. */
-  .banner-promocao {
-    max-width: 1200px; /* Largura máxima. */
-    margin: 0 auto; /* Centraliza. */
-  }
-
-  /* Conteúdo do banner: ícone + texto + selo. */
-  .conteudo-promocao {
-    display: flex; /* Alinha itens em linha. */
-    align-items: center; /* Centraliza verticalmente. */
-    gap: 30px; /* Espaço entre elementos. */
-    background: white; /* Fundo branco. */
-    padding: 30px; /* Espaçamento interno. */
-    border-radius: 20px; /* Bordas arredondadas. */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Sombra leve. */
-  }
-
-  /* Ícone grande do banner de promoção. */
-  .icone-promocao i {
-    font-size: 3rem; /* Tamanho do ícone. */
-    color: #2196f3; /* Azul vibrante. */
-  }
-
-  /* Texto descritivo do banner, ocupa o espaço restante. */
-  .texto-promocao {
-    flex: 1; /* Ocupa o espaço sobrando. */
-  }
-
-  /* Título do banner de promoção. */
-  .texto-promocao h2 {
-    color: #005fa3; /* Azul escuro. */
-    margin-bottom: 10px; /* Espaço abaixo. */
-    font-size: 2rem; /* Tamanho grande. */
-    font-weight: 700; /* Peso forte. */
-  }
-
-  /* Descrição do banner. */
-  .texto-promocao p {
-    color: #64748b; /* Cinza médio. */
-    font-size: 16px; /* Tamanho do texto. */
-  }
-
-  /* Selo/etiqueta da promoção no banner. */
-  .selo-promocao {
-    background: linear-gradient(135deg, #007ad9 0%, #005fa3 100%); /* Gradiente azul. */
-    color: white; /* Texto branco. */
-    padding: 15px 25px; /* Espaçamento interno. */
-    border-radius: 15px; /* Bordas arredondadas. */
-    font-weight: 700; /* Texto em destaque. */
-    font-size: 18px; /* Tamanho do texto. */
-    text-align: center; /* Centraliza o texto. */
-    box-shadow: 0 4px 15px rgba(0, 122, 217, 0.3); /* Sombra azul. */
-  }
-
-  /* Seção de lista de produtos. */
-  .secao-produtos {
-    padding: 60px 20px; /* Espaçamento. */
-    background: #f8fafc; /* Fundo cinza muito claro. */
-  }
-
-  /* Cabeçalho da seção de produtos. */
-  .cabecalho-secao {
-    text-align: center; /* Centraliza cabeçalho. */
-    margin-bottom: 50px; /* Espaço abaixo. */
-  }
-
-  /* Título da seção de produtos. */
-  .cabecalho-secao h2 {
-    color: #005fa3; /* Azul escuro. */
-    margin-bottom: 30px; /* Espaço abaixo. */
-    font-size: 2.2rem; /* Tamanho grande. */
-    font-weight: 700; /* Peso forte. */
-  }
-
-  /* Filtros de produtos como botões. */
-  .opcoes-filtro {
-    display: flex; /* Exibe filtros em linha. */
-    justify-content: center; /* Centraliza os filtros. */
-    gap: 15px; /* Espaço entre filtros. */
-    flex-wrap: wrap; /* Permite quebrar linha. */
-  }
-
-  /* Botão de filtro com estilo pill. */
-  .botao-filtro {
-    padding: 10px 20px; /* Tamanho do botão. */
-    border: 2px solid #90caf9; /* Borda azul clara. */
-    background: white; /* Fundo branco. */
-    color: #005fa3; /* Texto azul escuro. */
-    border-radius: 25px; /* Bordas arredondadas. */
-    cursor: pointer; /* Indicador de clique. */
-    transition: all 0.3s ease; /* Animação suave. */
-    font-weight: 500; /* Peso do texto. */
-  }
-
-  /* Estado ativo/hover do filtro. */
-  .botao-filtro.ativo,
-  .botao-filtro:hover {
-    background: #2196f3; /* Fundo azul. */
-    color: white; /* Texto branco. */
-    border-color: #2196f3; /* Borda azul. */
-  }
-
-  /* Container central com largura máxima. */
-  .container {
-    max-width: 1400px; /* Largura máxima grande. */
-    margin: 0 auto; /* Centraliza. */
-    padding: 0 20px; /* Respiro lateral. */
-  }
-
-  /* Grid responsivo de cards de produto. */
-  .grade-produtos {
-    display: grid; /* Layout em grid. */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Colunas flexíveis. */
-    gap: 30px; /* Espaço entre cards. */
-    margin-top: 40px; /* Espaço acima do grid. */
-  }
-
-  /* Card de produto com sombra e cantos arredondados. */
-  .cartao-produto {
-    background: white; /* Fundo branco. */
-    border-radius: 20px; /* Bordas arredondadas. */
-    overflow: hidden; /* Corta conteúdo que sai do card. */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* Sombra suave. */
-    transition: all 0.3s ease; /* Animação de hover. */
-    border: 1px solid #f1f5f9; /* Borda clarinha. */
-    position: relative; /* Necessário para selos absolutos. */
-  }
-
-  /* Efeito hover do card de produto. */
-  .cartao-produto:hover {
-    transform: translateY(-8px); /* Sobe um pouco. */
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); /* Sombra mais forte. */
-  }
-
-  /* Área da imagem do produto com altura fixa. */
-  .imagem-produto {
-    position: relative; /* Permite selos sobre a imagem. */
-    height: 200px; /* Altura da área de imagem. */
-    overflow: hidden; /* Corta excesso da imagem. */
-  }
-
-  /* Imagem responsiva que cobre a área definida. */
-  .imagem-produto img {
-    width: 100%; /* Ocupa toda a largura. */
-    height: 100%; /* Ocupa toda a altura. */
-    object-fit: cover; /* Cobre a área sem distorcer. */
-    transition: transform 0.3s ease; /* Animação para zoom no hover. */
-  }
-
-  /* Zoom suave na imagem ao passar o mouse no card. */
-  .cartao-produto:hover .imagem-produto img {
-    transform: scale(1.1); /* Aumenta levemente a imagem. */
-  }
-
-  /* Selo vermelho (ex.: promoção, novo). */
-  .selo-produto {
-    position: absolute; /* Posicionado sobre a imagem. */
-    top: 15px; /* Distância do topo. */
-    right: 15px; /* Distância da direita. */
-    background: #ef4444; /* Vermelho de destaque. */
-    color: white; /* Texto branco. */
-    padding: 8px 12px; /* Espaço interno. */
-    border-radius: 15px; /* Bordas arredondadas. */
-    font-weight: 600; /* Texto em destaque. */
-    font-size: 14px; /* Tamanho do texto. */
-  }
-
-  /* Área de informações abaixo da imagem. */
-  .info-produto {
-    padding: 25px; /* Espaçamento interno. */
-  }
-
-  /* Nome do produto. */
-  .info-produto h3 {
-    color: #005fa3; /* Azul escuro. */
-    margin-bottom: 10px; /* Espaço abaixo. */
-    font-size: 1.3rem; /* Tamanho do título. */
-    font-weight: 600; /* Peso em destaque. */
-  }
-
-  /* Descrição resumida do produto. */
-  .descricao-produto {
-    color: #64748b; /* Cinza médio. */
-    margin-bottom: 20px; /* Espaço abaixo. */
-    font-size: 14px; /* Tamanho do texto. */
-    line-height: 1.5; /* Altura de linha boa para leitura. */
-  }
-
-  /* Lista de detalhes (ex.: quantidades, medidas). */
-  .detalhes-produto {
-    margin-bottom: 20px; /* Espaço abaixo da lista de detalhes. */
-  }
-
-  /* Linha com preço atual/antigo e outras infos. */
-  .secao-preco {
-    display: flex; /* Alinha itens em linha. */
-    align-items: center; /* Centraliza verticalmente. */
-    gap: 10px; /* Espaço entre valores. */
-    margin-bottom: 10px; /* Espaço abaixo. */
-  }
-
-  /* Preço atual em destaque azul. */
-  .preco-atual {
-    color: #007ad9; /* Azul da marca. */
-    font-size: 24px; /* Tamanho grande. */
-    font-weight: 700; /* Peso forte. */
-  }
-
-  /* Preço antigo riscado. */
-  .preco-antigo {
-    color: #94a3b8; /* Cinza claro. */
-    text-decoration: line-through; /* Linha atravessada. */
-    font-size: 18px; /* Tamanho menor que o preço atual. */
-  }
-
-  /* Linha de informações de estoque (ícone + texto). */
-  .info-estoque {
-    display: flex; /* Alinha ícone e texto. */
-    align-items: center; /* Centraliza verticalmente. */
-    gap: 8px; /* Espaço entre ícone e texto. */
-    color: #64748b; /* Cor do texto. */
-    font-size: 14px; /* Tamanho do texto. */
-  }
-
-  /* Ícone das informações de estoque. */
-  .info-estoque i {
-    color: #2196f3; /* Azul vibrante. */
-  }
-
-  /* Classe para destacar quando estoque estiver baixo. */
-  .estoque-baixo {
-    color: #ef4444 !important; /* Vermelho e com !important para sobressair. */
-  }
-
-  /* Área com botões de ação (comprar, detalhes). */
-  .acoes-produto {
-    margin-top: 20px; /* Espaço acima. */
-  }
-
-  /* Estilo base para botões grandes e arredondados. */
-  .botao {
-    display: flex; /* Centraliza conteúdo do botão. */
-    justify-content: center; /* Alinha horizontalmente. */
-    align-items: center; /* Alinha verticalmente. */
-    gap: 8px; /* Espaço entre ícone e texto. */
-    padding: 12px 24px; /* Tamanho do botão. */
-    border: none; /* Sem borda por padrão. */
-    border-radius: 25px; /* Formato pill. */
-    cursor: pointer; /* Indica clique. */
-    transition: all 0.3s ease; /* Animação suave. */
-    font-weight: 600; /* Texto em destaque. */
-    font-size: 16px; /* Tamanho do texto. */
-    width: 100%; /* Ocupa toda a largura do container. */
-    text-decoration: none; /* Remove sublinhado em caso de <a>. */
-  }
-
-  /* Botão principal com gradiente e sombra. */
-  .botao-primario {
-    background: linear-gradient(135deg, #2196f3 0%, #007ad9 100%); /* Gradiente azul. */
-    color: white; /* Texto branco. */
-    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3); /* Sombra azul. */
-  }
-
-  /* Hover do botão primário (se não estiver desabilitado). */
-  .botao-primario:hover:not(:disabled) {
-    background: linear-gradient(135deg, #007ad9 0%, #005fa3 100%); /* Gradiente mais escuro. */
-    transform: translateY(-2px); /* Sobe levemente. */
-    box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4); /* Sombra maior. */
-  }
-
-  /* Estado desabilitado do botão primário. */
-  .botao-primario:disabled {
-    background: #94a3b8; /* Cinza indicando indisponível. */
-    cursor: not-allowed; /* Cursor de bloqueado. */
-    transform: none; /* Sem efeito de elevação. */
-    box-shadow: none; /* Sem sombra. */
-  }
-
-  /* Botão secundário com fundo neutro e borda. */
-  .botao-secundario {
-    background: #f1f5f9; /* Fundo cinza claro. */
-    color: #475569; /* Texto cinza escuro. */
-    border: 2px solid #e2e8f0; /* Borda clara. */
-  }
-
-  /* Hover do botão secundário: leve escurecimento. */
-  .botao-secundario:hover {
-    background: #e2e8f0; /* Fundo um tom mais escuro. */
-    border-color: #cbd5e1; /* Borda um pouco mais escura. */
-  }
-
-  /* Seção de aviso/segurança (ex.: aviso de automedicação). */
-  .info-seguranca {
-    background: linear-gradient(135deg, #e8f4f8 0%, #d1ecf1 100%); /* Gradiente suave. */
-    padding: 40px 20px; /* Espaçamento interno. */
-    border-top: 3px solid #2196f3; /* Linha superior azul. */
-    border-bottom: 3px solid #2196f3; /* Linha inferior azul. */
-  }
-
-  /* Conteúdo interno da seção de segurança. */
-  .conteudo-seguranca {
-    display: flex; /* Alinha ícone e texto lado a lado. */
-    align-items: center; /* Centraliza verticalmente. */
-    gap: 20px; /* Espaço entre ícone e texto. */
-    max-width: 800px; /* Limita largura. */
-    margin: 0 auto; /* Centraliza. */
-    background: white; /* Fundo branco. */
-    padding: 25px; /* Espaçamento interno. */
-    border-radius: 15px; /* Bordas arredondadas. */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra leve. */
-  }
-
-  /* Ícone grande da seção de segurança. */
-  .icone-seguranca i {
-    font-size: 2.5rem; /* Tamanho do ícone. */
-    color: #2196f3; /* Azul vibrante. */
-  }
-
-  /* Título da seção de segurança. */
-  .texto-seguranca h3 {
-    color: #005fa3; /* Azul escuro. */
-    margin-bottom: 10px; /* Espaço abaixo. */
-    font-size: 1.5rem; /* Tamanho do título. */
-    font-weight: 600; /* Peso médio/forte. */
-  }
-
-  /* Texto explicativo da seção de segurança. */
-  .texto-seguranca p {
-    color: #64748b; /* Cinza médio. */
-    font-size: 16px; /* Tamanho do texto. */
-    line-height: 1.6; /* Altura de linha confortável. */
-  }
-
-  /* Rodapé principal da página com links e informações. */
-  .rodape-principal {
-    background: linear-gradient(135deg, #005fa3 0%, #003f73 100%); /* Gradiente azul escuro. */
-    color: white; /* Texto branco. */
-    padding: 60px 20px 20px; /* Espaçamento com mais respiro no topo. */
-  }
-
-  /* Grid com colunas do rodapé. */
-  .conteudo-rodape {
-    display: grid; /* Layout em grid para colunas. */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Colunas responsivas. */
-    gap: 40px; /* Espaço entre colunas. */
-    max-width: 1200px; /* Largura máxima. */
-    margin: 0 auto; /* Centraliza. */
-    margin-bottom: 40px; /* Espaço abaixo do grid. */
-  }
-
-  /* Títulos de cada seção do rodapé. */
-  .secao-rodape h4 {
-    color: #2196f3; /* Azul vibrante. */
-    margin-bottom: 20px; /* Espaço abaixo. */
-    font-size: 1.3rem; /* Tamanho do título. */
-    font-weight: 600; /* Peso médio/forte. */
-  }
-
-  /* Parágrafos/linhas dentro do rodapé com ícones. */
-  .secao-rodape p {
-    margin-bottom: 10px; /* Espaço entre linhas. */
-    display: flex; /* Ícone e texto em linha. */
-    align-items: center; /* Alinha verticalmente. */
-    gap: 10px; /* Espaço entre ícone e texto. */
-    color: #bbdefb; /* Azul bem claro para texto. */
-  }
-
-  /* Ícones das linhas do rodapé. */
-  .secao-rodape i {
-    color: #2196f3; /* Azul vibrante. */
-    width: 20px; /* Largura reservada para alinhamento. */
-  }
-
-  /* Conjunto de links sociais no rodapé. */
-  .links-sociais {
-    display: flex; /* Exibe em linha. */
-    gap: 15px; /* Espaço entre ícones. */
-    margin-top: 20px; /* Espaço acima. */
-  }
-
-  /* Ícones/links sociais como círculos clicáveis. */
-  .links-sociais a {
-    display: flex; /* Centraliza o ícone. */
-    align-items: center; /* Alinha verticalmente. */
-    justify-content: center; /* Alinha horizontalmente. */
-    width: 40px; /* Tamanho do botão. */
-    height: 40px; /* Tamanho do botão. */
-    background: rgba(33, 150, 243, 0.2); /* Fundo azul translúcido. */
-    border-radius: 50%; /* Forma circular. */
-    color: #2196f3; /* Cor do ícone. */
-    text-decoration: none; /* Remove sublinhado. */
-    transition: all 0.3s ease; /* Animação suave. */
-  }
-
-  /* Hover dos links sociais: preenche fundo e ajusta cor. */
-  .links-sociais a:hover {
-    background: #2196f3; /* Fundo azul sólido. */
-    color: white; /* Ícone branco. */
-    transform: translateY(-2px); /* Sobe levemente. */
-  }
-
-  /* Lista de certificações/selos no rodapé. */
-  .certificacoes {
-    display: flex; /* Disposição vertical. */
-    flex-direction: column; /* Coluna. */
-    gap: 15px; /* Espaço entre itens. */
-  }
-
-  /* Item individual de certificação. */
-  .item-certificacao {
-    display: flex; /* Ícone + texto em linha. */
-    align-items: center; /* Alinha verticalmente. */
-    gap: 10px; /* Espaço entre ícone e texto. */
-    color: #bbdefb; /* Texto azul claro. */
-  }
-
-  /* Ícone da certificação. */
-  .item-certificacao i {
-    color: #2196f3; /* Azul vibrante. */
-    font-size: 1.2rem; /* Tamanho do ícone. */
-  }
-
-  /* Barra inferior do rodapé com direitos e info legal. */
-  .parte-inferior-rodape {
-    text-align: center; /* Centraliza o conteúdo. */
-    padding-top: 30px; /* Espaço acima. */
-    border-top: 1px solid #003f73; /* Linha separadora escura. */
-    color: #90caf9; /* Texto azul claro. */
-  }
-
-  /* Linhas de texto na base do rodapé. */
-  .parte-inferior-rodape p {
-    margin: 5px 0; /* Espaço entre linhas. */
-    font-size: 14px; /* Tamanho da fonte. */
-  }
-
-
-
-  /* Seção de produtos com âncora: garante offset ao usar links hash. */
-  #secao-produtos {
-    scroll-margin-top: 80px;  /* Garante que, ao rolar via âncora, a seção não fique escondida sob a navbar. */
-    transition: all 0.3s ease; /* Transição genérica para mudanças de estilo. */
-  }
-
-
-  /* Destaque visual quando a seção é alvo da âncora ou recebe a classe highlight. */
-  #secao-produtos:target,
-  #secao-produtos.highlight {
-    background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); /* Fundo com leve gradiente para destacar. */
-    transition: background 0.5s ease; /* Transição suave do fundo. */
-  }
-
-
-  /* Animação aplicada quando uma categoria é clicada. */
-  .item-categoria.clicado {
-    animation: pulseCategoria 0.3s ease; /* Aplica a animação definida abaixo. */
-  }
-
-  /* Keyframes de “pulso” (cresce e volta). */
-  @keyframes pulseCategoria {
-    0% { transform: scale(1); } /* Estado inicial, tamanho normal. */
-    50% { transform: scale(1.05); } /* No meio, aumenta 5%. */
-    100% { transform: scale(1); } /* Retorna ao tamanho original. */
-  }
-
-
-  /* Rolagem suave para toda a página ao clicar em links de âncora. */
-  html {
-    scroll-behavior: smooth; /* Faz a rolagem animada. */
-  }
-
-
-  /* Container de resultados de busca com animação de entrada. */
-  .resultados-busca {
-    animation: slideInDown 0.5s ease-out; /* Usa a animação definida abaixo. */
-  }
-
-  /* Animação para entrar de cima com fade. */
-  @keyframes slideInDown {
-    from {
-      opacity: 0; /* Começa invisível. */
-      transform: translateY(-20px); /* Posicionado 20px acima. */
-    }
-    to {
-      opacity: 1; /* Fica visível. */
-      transform: translateY(0); /* Volta à posição natural. */
-    }
-  }
+  z-index: 100;
+  border-bottom: 3px solid #2196f3;
+}
+
+.secao-logo .container-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icone-logo {
+  font-size: 2rem;
+  color: #2196f3;
+}
+
+.container-logo h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.secao-busca {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin: 0 30px;
+}
+
+.container-busca {
+  position: relative;
+  width: 400px;
+  max-width: 100%;
+}
+
+.icone-busca {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  z-index: 2;
+}
+
+.container-busca input {
+  width: 100%;
+  padding: 12px 50px 12px 45px;
+  border-radius: 25px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.95);
+  color: #334155;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.limpar-busca {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #f1f5f9;
+  border: 2px solid #e2e8f0;
+  color: #64748b;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.limpar-busca:hover {
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+.limpar-busca:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.limpar-busca:focus {
+  outline: none;
+  border-color: #2196f3;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+}
+
+.limpar-busca.prominente {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 3px 12px rgba(239, 68, 68, 0.4);
+}
+
+.limpar-busca.prominente:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 5px 20px rgba(239, 68, 68, 0.5);
+}
+
+.sugestoes-busca {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  margin-top: 10px;
+}
+
+.lista-sugestoes {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.botao-sugestao {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.botao-sugestao:hover {
+  background: #2196f3;
+  color: white;
+  border-color: #2196f3;
+}
+
+.botoes-navegacao {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.botao-nav {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #005fa3 0%, #003f73 100%);
+  padding: 12px 20px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  font-weight: 500;
+  position: relative;
+}
+
+.botao-nav:hover {
+  background: linear-gradient(135deg, #003f73 0%, #002952 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.selo-carrinho {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ef4444;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.conteudo-modal {
+  background: white;
+  padding: 0;
+  border-radius: 20px;
+  width: 500px;
+  max-width: 90%;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+
+.cabecalho-modal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background: linear-gradient(135deg, #007ad9 0%, #005fa3 100%);
+  color: white;
+}
+
+.cabecalho-modal h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.botao-fechar {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.botao-fechar:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.itens-carrinho {
+  padding: 20px 30px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.item-carrinho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.info-item h4 {
+  color: #005fa3;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.quantidade-item {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.botao-remover {
+  background: #ef4444;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.botao-remover:hover {
+  background: #dc2626;
+  transform: scale(1.05);
+}
+
+.carrinho-vazio {
+  text-align: center;
+  padding: 40px 20px;
+  color: #64748b;
+}
+
+.icone-vazio {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+.rodape-modal {
+  display: flex;
+  gap: 15px;
+  padding: 20px 30px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.modal-formulario {
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.formulario-cliente {
+  padding: 20px 30px;
+}
+
+.campo-formulario {
+  margin-bottom: 20px;
+}
+
+.campo-formulario label {
+  display: block;
+  margin-bottom: 8px;
+  color: #475569;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.campo-formulario label i {
+  margin-right: 8px;
+  color: #3b82f6;
+}
+
+.campo-formulario input,
+.campo-formulario textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.campo-formulario input:focus,
+.campo-formulario textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.campo-formulario textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.resumo-pedido {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 20px;
+}
+
+.resumo-pedido h4 {
+  color: #1e293b;
+  font-size: 16px;
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.resumo-pedido h4 i {
+  color: #3b82f6;
+}
+
+.itens-resumo {
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.itens-resumo p {
+  margin: 6px 0;
+  color: #64748b;
+  font-size: 14px;
+  padding: 8px;
+  background: white;
+  border-radius: 6px;
+}
+
+.total-pedido {
+  margin-top: 16px;
+  padding: 12px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.opcoes-entrega,
+.opcoes-pagamento {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.opcao-radio {
+  flex: 1;
+  min-width: 140px;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.opcao-radio:hover {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.opcao-radio input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.opcao-radio input[type="radio"]:checked + span {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.opcao-radio span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #475569;
+  font-size: 14px;
+  flex: 1;
+}
+
+.opcao-radio span i {
+  font-size: 16px;
+}
+
+.qrcode-pix-container {
+  background: #f1f5f9;
+  border: 2px solid #3b82f6;
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.qrcode-pix-container h4 {
+  color: #1e293b;
+  font-size: 18px;
+  margin: 0 0 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.opcoes-pix {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin: 20px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.opcao-pix {
+  flex: 1;
+  min-width: 250px;
+  max-width: 350px;
+}
+
+.opcao-pix h5 {
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.separador-ou {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 0 16px;
+}
+
+.qrcode-image {
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+  border: 4px solid white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.codigo-pix-container {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.codigo-pix {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #1e293b;
+  resize: none;
+  margin-bottom: 12px;
+  word-break: break-all;
+}
+
+.botao-copiar {
+  width: 100%;
+  background: #3b82f6;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.botao-copiar:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+.instrucoes-pix {
+  color: #64748b;
+  font-size: 14px;
+  margin: 16px 0;
+  padding: 12px;
+  background: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.instrucoes-pix i {
+  color: #3b82f6;
+  font-size: 16px;
+}
+
+.botao-sucesso {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.botao-sucesso:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.cabecalho-principal {
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+  padding: 60px 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.conteudo-cabecalho {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.texto-cabecalho h1 {
+  color: #007ad9;
+  margin-bottom: 15px;
+  font-size: 3rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.texto-cabecalho p {
+  font-size: 20px;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+
+.recursos-cabecalho {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.recurso {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: #005fa3;
+}
+
+.recurso i {
+  font-size: 2rem;
+  color: #2196f3;
+}
+
+.recurso span {
+  font-weight: 600;
+}
+
+.categorias {
+  padding: 60px 20px;
+  background: white;
+}
+
+.categorias h2 {
+  text-align: center;
+  color: #005fa3;
+  margin-bottom: 40px;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.grade-categoria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.item-categoria {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-radius: 15px;
+  border: 2px solid #90caf9;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.item-categoria:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(33, 150, 243, 0.2);
+  border-color: #2196f3;
+}
+
+.item-categoria i {
+  font-size: 2.5rem;
+  color: #2196f3;
+  margin-bottom: 15px;
+}
+
+.item-categoria span {
+  color: #005fa3;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.promocoes {
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #e8f4f8 0%, #d1ecf1 100%);
+}
+
+.banner-promocao {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.conteudo-promocao {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.icone-promocao i {
+  font-size: 3rem;
+  color: #2196f3;
+}
+
+.texto-promocao {
+  flex: 1;
+}
+
+.texto-promocao h2 {
+  color: #005fa3;
+  margin-bottom: 10px;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.texto-promocao p {
+  color: #64748b;
+  font-size: 16px;
+}
+
+.selo-promocao {
+  background: linear-gradient(135deg, #007ad9 0%, #005fa3 100%);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 122, 217, 0.3);
+}
+
+.secao-produtos {
+  padding: 60px 20px;
+  background: #f8fafc;
+}
+
+.cabecalho-secao {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.cabecalho-secao h2 {
+  color: #005fa3;
+  margin-bottom: 30px;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.opcoes-filtro {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.botao-filtro {
+  padding: 10px 20px;
+  border: 2px solid #90caf9;
+  background: white;
+  color: #005fa3;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.botao-filtro.ativo,
+.botao-filtro:hover {
+  background: #2196f3;
+  color: white;
+  border-color: #2196f3;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.grade-produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.cartao-produto {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid #f1f5f9;
+  position: relative;
+}
+
+.cartao-produto:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.imagem-produto {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.imagem-produto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.cartao-produto:hover .imagem-produto img {
+  transform: scale(1.1);
+}
+
+.selo-produto {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #ef4444;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 15px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.info-produto {
+  padding: 25px;
+}
+
+.info-produto h3 {
+  color: #005fa3;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.descricao-produto {
+  color: #64748b;
+  margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.detalhes-produto {
+  margin-bottom: 20px;
+}
+
+.secao-preco {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.preco-atual {
+  color: #007ad9;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.preco-antigo {
+  color: #94a3b8;
+  text-decoration: line-through;
+  font-size: 18px;
+}
+
+.info-estoque {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.info-estoque i {
+  color: #2196f3;
+}
+
+.estoque-baixo {
+  color: #ef4444 !important;
+}
+
+.acoes-produto {
+  margin-top: 20px;
+}
+
+.botao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 16px;
+  width: 100%;
+  text-decoration: none;
+}
+
+.botao-primario {
+  background: linear-gradient(135deg, #2196f3 0%, #007ad9 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+}
+
+.botao-primario:hover:not(:disabled) {
+  background: linear-gradient(135deg, #007ad9 0%, #005fa3 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4);
+}
+
+.botao-primario:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.botao-secundario {
+  background: #f1f5f9;
+  color: #475569;
+  border: 2px solid #e2e8f0;
+}
+
+.botao-secundario:hover {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+}
+
+.info-seguranca {
+  background: linear-gradient(135deg, #e8f4f8 0%, #d1ecf1 100%);
+  padding: 40px 20px;
+  border-top: 3px solid #2196f3;
+  border-bottom: 3px solid #2196f3;
+}
+
+.conteudo-seguranca {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.icone-seguranca i {
+  font-size: 2.5rem;
+  color: #2196f3;
+}
+
+.texto-seguranca h3 {
+  color: #005fa3;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.texto-seguranca p {
+  color: #64748b;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.rodape-principal {
+  background: linear-gradient(135deg, #005fa3 0%, #003f73 100%);
+  color: white;
+  padding: 60px 20px 20px;
+}
+
+.conteudo-rodape {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+}
+
+.secao-rodape h4 {
+  color: #2196f3;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.secao-rodape p {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #bbdefb;
+}
+
+.secao-rodape i {
+  color: #2196f3;
+  width: 20px;
+}
+
+.links-sociais {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.links-sociais a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(33, 150, 243, 0.2);
+  border-radius: 50%;
+  color: #2196f3;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.links-sociais a:hover {
+  background: #2196f3;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.certificacoes {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.item-certificacao {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #bbdefb;
+}
+
+.item-certificacao i {
+  color: #2196f3;
+  font-size: 1.2rem;
+}
+
+.parte-inferior-rodape {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid #003f73;
+  color: #90caf9;
+}
+
+.parte-inferior-rodape p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+
+
+
+#secao-produtos {
+  scroll-margin-top: 80px; 
+  transition: all 0.3s ease;
+}
+
+
+#secao-produtos:target,
+#secao-produtos.highlight {
+  background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+  transition: background 0.5s ease;
+}
+
+
+.item-categoria.clicado {
+  animation: pulseCategoria 0.3s ease;
+}
+
+@keyframes pulseCategoria {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+.resultados-busca {
+  animation: slideInDown 0.5s ease-out;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

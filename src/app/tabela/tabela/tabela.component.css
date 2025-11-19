@@ -1,128 +1,117 @@
-/* Estilos globais para centralizar o conteúdo na tela e dar um fundo suave */
 body {
-  background-color: #f4f4f4; /* Cor de fundo clara para destacar os cartões */
-  display: flex; /* Usa flexbox para facilitar o alinhamento */
-  justify-content: center; /* Centraliza horizontalmente o conteúdo */
-  align-items: center; /* Centraliza verticalmente o conteúdo */
-  height: 100vh; /* Altura total da viewport para centralização vertical completa */
-  margin: 0; /* Remove margens padrão do body */
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
 
-/* Container principal da tabela: cartão com sombra e bordas arredondadas */
 .tabela-container {
-  padding: 20px; /* Espaçamento interno para respirar o conteúdo */
-  background: #fff; /* Fundo branco para contraste */
-  border-radius: 10px; /* Bordas arredondadas para visual moderno */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave ao redor do container */
-  max-width: 800px; /* Largura máxima para não ficar muito largo em telas grandes */
-  margin: 20px auto; /* Centraliza horizontalmente e dá espaço superior/inferior */
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 20px auto;
 }
 
-/* Container externo que centraliza o conteúdo interno */
 #container-pai {
-  width: 100%; /* Ocupa toda a largura disponível */
-  height: 100%;  /* Ocupa toda a altura do elemento pai */
-  display: flex; /* Flexbox para centralização */
-  justify-content: center; /* Alinha conteúdo no centro horizontal */
-  align-items: center; /* Alinha conteúdo no centro vertical */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Container do formulário/conteúdo: cartão central com layout em coluna */
 #container {
-  background: #fff; /* Fundo branco para destacar do background cinza */
-  padding: 20px 40px; /* Espaçamento interno confortável (vertical x horizontal) */
-  border-radius: 10px; /* Bordas arredondadas para estética suave */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra leve para profundidade */
-  max-width: 500px; /* Limita a largura máxima do cartão */
-  width: 100%; /* Permite que ocupe toda a largura disponível até 500px */
-  display: flex; /* Layout flexível */
-  flex-direction: column; /* Organiza os elementos verticamente */
-  justify-content: center; /* Centraliza o conteúdo na vertical (dentro do container) */
-  align-items: center; /* Centraliza os elementos na horizontal */
+  background: #fff;
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Grupo de inputs: ocupa toda a largura e empilha campos verticalmente */
 #grupo-de-input {
-  width: 100%; /* Campos ocupam a largura total do container */
-  display: flex; /* Usa flex para organizar os inputs */
-  flex-direction: column; /* Empilha inputs um abaixo do outro */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Estilo dos rótulos dos campos para melhor legibilidade */
 #grupo-de-input label {
-  font-weight: bold; /* Deixa o texto do label em negrito */
-  margin-top: 10px; /* Espaço acima do label */
-  margin-bottom: 5px; /* Espaço abaixo, separando do input */
-  color: #333; /* Cor escura para bom contraste */
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  color: #333;
 }
 
-/* Inputs e componentes PrimeNG dentro do grupo: largura total e cantos arredondados */
 #grupo-de-input input[type="text"],
 #grupo-de-input p-calendar,
 #grupo-de-input p-dropdown,
 #grupo-de-input .p-inputtext,
 #grupo-de-input .p-inputmask {
-  width: 100%; /* Campos se expandem para ocupar toda a largura disponível */
-  margin-bottom: 15px; /* Espaçamento inferior entre campos */
-  border-radius: 5px; /* Cantos suavemente arredondados nos campos */
+  width: 100%;
+  margin-bottom: 15px;
+  border-radius: 5px;
 }
 
-/* Wrapper do botão PrimeNG: controla tamanho e centralização */
 p-button {
-  margin-left: 20px; /* Espaço à esquerda (pode alinhar com os inputs) */
-  width: 60px; /* Largura inicial (será sobrescrita logo abaixo por 100%) */
-  height: 50px; /* Altura do wrapper do botão */
-  display: flex; /* Flex para centralizar o conteúdo interno */
-  justify-content: center; /* Centraliza o botão horizontalmente */
-  width: 100%; /* Faz o wrapper ocupar toda a largura disponível */
-  max-width: 200px; /* Mas limita a no máximo 200px de largura */
-  margin-top: 10px; /* Espaço acima do botão */
+  margin-left: 20px;
+  width: 60px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 200px;
+  margin-top: 10px;
 }
 
-/* Estilização do botão interno do PrimeNG */
 p-button button {
-  width: 100%; /* Botão ocupa toda a largura do wrapper (até 200px) */
-  padding: 10px; /* Acolchoamento interno para aumentar área clicável */
-  border: none; /* Remove a borda padrão */
-  border-radius: 5px; /* Cantos arredondados */
-  background-color: #007ad9; /* Cor principal do botão (azul) */
-  color: #fff; /* Texto branco para contraste */
-  font-size: 16px; /* Tamanho de fonte legível */
-  cursor: pointer; /* Indica que é clicável */
-  transition: background-color 0.3s; /* Suaviza a mudança de cor no hover */
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007ad9;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-/* Container para agrupar e centralizar o(s) botão(ões) */
 #botao {
-  display: flex; /* Usa flex para organizar conteúdo */
-  justify-content: center; /* Centraliza horizontalmente os botões */
-  flex-direction: start; /* OBS: valor inválido para flex-direction (válidos: row, row-reverse, column, column-reverse) */
+  display: flex;
+  justify-content: center;
+  flex-direction: start;
 }
 
-/* Responsividade para telas pequenas (até 600px de largura) */
 @media (max-width: 600px) {
   body {
-    height: 100vh;  /* Mantém a altura total da viewport também no mobile */
+    height: 100vh;
   }
   
   #container-pai {
-    width: 100%; /* Garante que ocupe toda a largura */
-    height: 100%;  /* E toda a altura disponível */
+    width: 100%;
+    height: 100%;
   }
   
   #container {
-    padding: 20px; /* Reduz o padding horizontal para caber melhor */
-    width: 100%; /* Largura total no mobile */
-    height: 100%;  /* Altura total do pai */
-    box-shadow: none;  /* Remove sombra para se mesclar ao fundo no mobile */
-    border-radius: 0;  /* Remove bordas arredondadas para layout de tela cheia */
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    box-shadow: none;
+    border-radius: 0;
   }
   #butao {
-    max-width: 600px; /* OBS: provável erro de digitação; o ID acima é #botao (com 'o'), aqui está #butao (sem 'o') */
+    max-width: 600px;
   }
   p-button {
-    width: 100%; /* Primeira regra define 100% de largura... */
-    width: 100px; /* ...mas esta logo abaixo sobrescreve para 100px (a última prevalece) */
-    height: 60px; /* Aumenta a altura do botão no mobile */
+    width: 100%;
+    width: 100px;
+    height: 60px;
   }
 }

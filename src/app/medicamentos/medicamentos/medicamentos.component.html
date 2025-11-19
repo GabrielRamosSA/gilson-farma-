@@ -1,41 +1,28 @@
-<!-- Barra de navegação fixa no topo com logo, busca e botões de ação. -->
 <nav class="barra-navegacao">
-  <!-- Seção da logo/identidade visual da farmácia. -->
   <div class="secao-logo">
     <div class="container-logo">
-      <!-- Ícone de comprimidos usando Font Awesome para reforçar o tema. -->
       <i class="fas fa-pills icone-logo"></i>
-      <!-- Nome da marca em destaque na barra de navegação. -->
       <h1>Farma Gilson</h1>
     </div>
   </div>
   
-  <!-- Área central com a barra de busca de produtos. -->
   <div class="secao-busca">
     <div class="container-busca">
-      <!-- Ícone de lupa dentro do campo de busca. -->
       <i class="fas fa-search icone-busca"></i>
-      <!-- Campo de busca com binding bidirecional (ngModel) ao termo de pesquisa.
-           Observação: para [(ngModel)] funcionar, o componente precisa importar FormsModule. -->
       <input 
         type="text" 
         placeholder="Buscar medicamentos, vitaminas, cosméticos..."
         [(ngModel)]="termoPesquisa"
         (input)="filtrarProdutos(filtroAtivo)">
-      <!-- Botão circular para limpar a busca; só aparece quando há texto digitado. -->
       <button class="limpar-busca prominente" *ngIf="termoPesquisa.length > 0" (click)="limparPesquisa()">
         <i class="fas fa-times"></i>
       </button>
     </div>
     
-    <!-- Bloco de sugestões e feedback quando não há resultados para o termo digitado. -->
     <div class="sugestoes-busca" *ngIf="termoPesquisa.length >= 2 && produtosFiltrados.length === 0">
-      <!-- Mensagem ao usuário com o termo pesquisado. -->
       <p>Nenhum produto encontrado para "{{ termoPesquisa }}"</p>
       <div class="lista-sugestoes">
-        <!-- Texto auxiliar antes dos botões de sugestão. -->
         <span>Sugestões:</span>
-        <!-- Sugestão rápida: define diretamente o termo de pesquisa ao clicar. -->
         <button class="botao-sugestao" (click)="termoPesquisa = 'dor'">Dor</button>
         <button class="botao-sugestao" (click)="termoPesquisa = 'febre'">Febre</button>
         <button class="botao-sugestao" (click)="termoPesquisa = 'pressão'">Pressão</button>
@@ -44,52 +31,40 @@
     </div>
   </div>
   
-  <!-- Botões de navegação da direita: voltar e abrir carrinho. -->
   <div class="botoes-navegacao">
-    <!-- Botão de voltar para página anterior ou rota definida no TS. -->
     <div class="botao-nav" (click)="voltar()">
       <i class="fas fa-arrow-left"></i>
       <span>Voltar</span>
     </div>
-    <!-- Botão do carrinho com contador; exibe selo quando há itens. -->
     <div class="botao-nav botao-carrinho" (click)="abrirCarrinho()">
       <i class="fas fa-shopping-cart"></i>
       <span>Carrinho ({{ contadorCarrinho }})</span>
-      <!-- Selo numérico aparece apenas quando há itens no carrinho. -->
       <div class="selo-carrinho" *ngIf="contadorCarrinho > 0">{{ contadorCarrinho }}</div>
     </div>
   </div>
 </nav>
 
-<!-- Modal de carrinho: abre sobre a página quando modalAberto é true. -->
 <div class="modal" *ngIf="modalAberto" (click)="fecharCarrinho()">
-  <!-- Conteúdo da modal; clique aqui não fecha a modal (stopPropagation). -->
   <div class="conteudo-modal" (click)="$event.stopPropagation()">
     <div class="cabecalho-modal">
-      <!-- Título da modal com ícone de carrinho. -->
       <h3><i class="fas fa-shopping-cart"></i> Seu Carrinho</h3>
-      <!-- Botão de fechar modal. -->
       <button class="botao-fechar" (click)="fecharCarrinho()">
         <i class="fas fa-times"></i>
       </button>
     </div>
     
-    <!-- Lista de itens no carrinho quando houver pelo menos 1 item; caso contrário, mostra template de vazio abaixo. -->
     <div class="itens-carrinho" *ngIf="carrinho.length > 0; else carrinhoVazio">
-      <!-- Itera sobre os itens do carrinho para exibir nome e quantidade. -->
       <div class="item-carrinho" *ngFor="let item of carrinho; let i = index">
         <div class="info-item">
           <h4>{{ item.nome }}</h4>
           <span class="quantidade-item">Quantidade: {{ item.quantidade }}</span>
         </div>
-        <!-- Botão de remover item específico com base no índice i. -->
         <button class="botao-remover" (click)="removerDoCarrinho(i)">
           <i class="fas fa-trash"></i>
         </button>
       </div>
     </div>
     
-    <!-- Template mostrado quando o carrinho está vazio. -->
     <ng-template #carrinhoVazio>
       <div class="carrinho-vazio">
         <i class="fas fa-shopping-cart icone-vazio"></i>
@@ -97,7 +72,6 @@
       </div>
     </ng-template>
     
-    <!-- Rodapé da modal com ações: continuar ou finalizar. Só aparece se houver itens. -->
     <div class="rodape-modal" *ngIf="carrinho.length > 0">
       <button class="botao botao-secundario" (click)="fecharCarrinho()">
         <i class="fas fa-arrow-left"></i> Continuar Comprando
@@ -109,7 +83,123 @@
   </div>
 </div>
 
-<!-- Cabeçalho hero da página com título, descrição e recursos. -->
+<div class="modal" *ngIf="modalFinalizarAberto" (click)="fecharModalFinalizar()">
+  <div class="conteudo-modal modal-formulario" (click)="$event.stopPropagation()">
+    <div class="cabecalho-modal">
+      <h3><i class="fas fa-file-alt"></i> Dados para Entrega</h3>
+      <button class="botao-fechar" (click)="fecharModalFinalizar()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <form class="formulario-cliente">
+      <div class="campo-formulario">
+        <label><i class="fas fa-user"></i> Nome Completo *</label>
+        <input type="text" [(ngModel)]="clienteForm.nome" name="nome" placeholder="Digite seu nome completo" required>
+      </div>
+      
+      <div class="campo-formulario">
+        <label><i class="fas fa-envelope"></i> Email *</label>
+        <input type="email" [(ngModel)]="clienteForm.email" name="email" placeholder="seu@email.com" required>
+      </div>
+      
+      <div class="campo-formulario">
+        <label><i class="fas fa-phone"></i> Telefone *</label>
+        <input type="tel" [(ngModel)]="clienteForm.telefone" name="telefone" placeholder="(00) 00000-0000" required>
+      </div>
+
+      <div class="campo-formulario">
+        <label><i class="fas fa-truck"></i> Tipo de Entrega *</label>
+        <div class="opcoes-entrega">
+          <label class="opcao-radio">
+            <input type="radio" [(ngModel)]="clienteForm.tipoEntrega" name="tipoEntrega" value="retirada">
+            <span><i class="fas fa-store"></i> Retirar na Loja</span>
+          </label>
+          <label class="opcao-radio">
+            <input type="radio" [(ngModel)]="clienteForm.tipoEntrega" name="tipoEntrega" value="delivery">
+            <span><i class="fas fa-motorcycle"></i> Delivery</span>
+          </label>
+        </div>
+      </div>
+      
+      <div class="campo-formulario" *ngIf="clienteForm.tipoEntrega === 'delivery'">
+        <label><i class="fas fa-map-marker-alt"></i> Endereço Completo *</label>
+        <textarea [(ngModel)]="clienteForm.endereco" name="endereco" placeholder="Rua, número, bairro, cidade" rows="3" required></textarea>
+      </div>
+
+      <div class="campo-formulario">
+        <label><i class="fas fa-credit-card"></i> Método de Pagamento *</label>
+        <div class="opcoes-pagamento">
+          <label class="opcao-radio">
+            <input type="radio" [(ngModel)]="clienteForm.metodoPagamento" name="metodoPagamento" value="dinheiro">
+            <span><i class="fas fa-money-bill-wave"></i> Dinheiro</span>
+          </label>
+          <label class="opcao-radio">
+            <input type="radio" [(ngModel)]="clienteForm.metodoPagamento" name="metodoPagamento" value="pix">
+            <span><i class="fas fa-qrcode"></i> PIX</span>
+          </label>
+        </div>
+      </div>
+      
+      <div class="resumo-pedido">
+        <div style="display: flex; justify-content: space-evenly;">
+          <h4><strong><i class="fas fa-clipboard-list"></i> Resumo do Pedido</strong></h4>
+          <h4><strong>Total: R$ {{ calcularPrecoTotal() | number:'1.2-2' }}</strong></h4>
+        </div>
+        <div class="itens-resumo">
+          <p *ngFor="let item of carrinho">
+            {{ item.nome }} - Qtd: {{ item.quantidade }}
+          </p>
+        </div>
+      </div>
+
+      <div class="qrcode-pix-container" *ngIf="mostrarQRCodePix">
+        <h4><i class="fas fa-qrcode"></i> Pagamento PIX</h4>
+        
+        <div class="opcoes-pix">
+          <div class="opcao-pix">
+            <h5><i class="fas fa-camera"></i> Escaneie o QR Code</h5>
+            <img [src]="qrCodePixData" alt="QR Code PIX" class="qrcode-image">
+          </div>
+          
+          
+          <div class="opcao-pix">
+            <h5><i class="fas fa-copy"></i> PIX Copia e Cola</h5>
+            <div class="codigo-pix-container">
+              <textarea 
+                class="codigo-pix" 
+                [value]="pixCopiaCola" 
+                readonly
+                rows="4"></textarea>
+              <button class="botao-copiar" (click)="copiarCodigoPix()">
+                <i class="fas fa-copy"></i> Copiar Código
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <p class="instrucoes-pix">
+          <i class="fas fa-info-circle"></i> 
+          Abra o app do seu banco, escaneie o QR Code OU cole o código PIX e confirme o pagamento
+        </p>
+        <button class="botao botao-sucesso" (click)="confirmarPagamentoPix()">
+          <i class="fas fa-check-circle"></i> Já Paguei
+        </button>
+      </div>
+    </form>
+    
+    <div class="rodape-modal" *ngIf="!mostrarQRCodePix">
+      <button class="botao botao-secundario" (click)="fecharModalFinalizar()">
+        <i class="fas fa-times"></i> Cancelar
+      </button>
+      <button class="botao botao-primario" (click)="enviarPedido()">
+        <i class="fas fa-paper-plane"></i> 
+        {{ clienteForm.metodoPagamento === 'pix' ? 'Gerar QR Code PIX' : 'Enviar Pedido' }}
+      </button>
+    </div>
+  </div>
+</div>
+
 <header class="cabecalho-principal">
   <div class="conteudo-cabecalho">
     <div class="texto-cabecalho">
@@ -117,17 +207,14 @@
       <p>Sua saúde é nossa prioridade. Medicamentos com qualidade e preços acessíveis.</p>
     </div>
     <div class="recursos-cabecalho">
-      <!-- Recurso destacado: entrega rápida. -->
       <div class="recurso">
         <i class="fas fa-truck"></i>
         <span>Entrega Rápida</span>
       </div>
-      <!-- Recurso destacado: produtos originais. -->
       <div class="recurso">
         <i class="fas fa-shield-alt"></i>
         <span>Produtos Originais</span>
       </div>
-      <!-- Recurso destacado: atendimento 24 horas. -->
       <div class="recurso">
         <i class="fas fa-clock"></i>
         <span>Atendimento 24h</span>
@@ -136,54 +223,46 @@
   </div>
 </header>
 
-<!-- Seção de categorias: filtros rápidos por tipo de produto. -->
 <section class="categorias">
   <div class="container">
     <h2>Categorias</h2>
     <div class="grade-categoria">
-      <!-- Card de categoria: Todos. [class.ativo] ativa visualmente quando selecionado. -->
       <div class="item-categoria" 
            [class.ativo]="categoriaAtiva === 'Todos'" 
            (click)="filtrarPorCategoria('Todos')">
         <i class="fas fa-th-large"></i>
         <span>Todos</span>
       </div>
-      <!-- Categoria: Medicamentos. -->
       <div class="item-categoria" 
            [class.ativo]="categoriaAtiva === 'Medicamentos'" 
            (click)="filtrarPorCategoria('Medicamentos')">
         <i class="fas fa-pills"></i>
         <span>Medicamentos</span>
       </div>
-      <!-- Categoria: Vitaminas. -->
       <div class="item-categoria" 
            [class.ativo]="categoriaAtiva === 'Vitaminas'" 
            (click)="filtrarPorCategoria('Vitaminas')">
         <i class="fas fa-heart"></i>
         <span>Vitaminas</span>
       </div>
-      <!-- Categoria: Infantil. -->
       <div class="item-categoria" 
            [class.ativo]="categoriaAtiva === 'Infantil'" 
            (click)="filtrarPorCategoria('Infantil')">
         <i class="fas fa-baby"></i>
         <span>Infantil</span>
       </div>
-      <!-- Categoria: Higiene. -->
       <div class="item-categoria" 
            [class.ativo]="categoriaAtiva === 'Higiene'" 
            (click)="filtrarPorCategoria('Higiene')">
         <i class="fas fa-soap"></i>
         <span>Higiene</span>
       </div>
-      <!-- Categoria: Cosméticos. -->
       <div class="item-categoria" 
            [class.ativo]="categoriaAtiva === 'Cosméticos'" 
            (click)="filtrarPorCategoria('Cosméticos')">
         <i class="fas fa-eye"></i>
         <span>Cosméticos</span>
       </div>
-      <!-- Categoria: Bucal. -->
       <div class="item-categoria" 
            [class.ativo]="categoriaAtiva === 'Bucal'" 
            (click)="filtrarPorCategoria('Bucal')">
@@ -194,7 +273,6 @@
   </div>
 </section>
 
-<!-- Seção com banner de promoções em destaque. -->
 <section class="promocoes">
   <div class="container">
     <div class="banner-promocao">
@@ -214,29 +292,22 @@
   </div>
 </section>
 
-<!-- Catálogo de produtos filtrável e com âncora (id usado para rolagem). -->
 <section class="secao-produtos" id="secao-produtos">
   <div class="container">
     <div class="cabecalho-secao">
-      <!-- Cabeçalho dinâmico de resultados: mostra contagem e contexto conforme filtros/termo. -->
       <div class="resultados-busca" *ngIf="termoPesquisa.length > 0 || categoriaAtiva !== 'Todos'">
-        <!-- Título quando há termo pesquisado. -->
         <h2 *ngIf="termoPesquisa.length > 0">
           Resultados para "{{ termoPesquisa }}" ({{ produtosFiltrados.length }} encontrados)
         </h2>
-        <!-- Título quando não há termo mas há uma categoria aplicada. -->
         <h2 *ngIf="termoPesquisa.length === 0 && categoriaAtiva !== 'Todos'">
           {{ categoriaAtiva }} ({{ produtosFiltrados.length }} produtos)
         </h2>
-        <!-- Botão para limpar todos os filtros e voltar à listagem completa. -->
         <button class="botao-filtro" style="margin-bottom: 30px;" (click)="limparTodosFiltros()">
           <i class="fas fa-times"></i> Limpar filtros
         </button>
       </div>
-      <!-- Título padrão quando não há filtros e nenhum termo de busca. -->
       <h2 *ngIf="termoPesquisa.length === 0 && categoriaAtiva === 'Todos'">Nossos Medicamentos</h2>
       
-      <!-- Conjunto de filtros por tipo de produto (mutuamente exclusivos). -->
       <div class="opcoes-filtro">
         <button 
           class="botao-filtro" 
@@ -265,7 +336,6 @@
       </div>
     </div>
     
-    <!-- Mensagem amigável quando a busca não retorna produtos. -->
     <div class="nenhum-produto" *ngIf="produtosFiltrados.length === 0 && termoPesquisa.length > 0">
       <div class="conteudo-nenhum-produto">
         <i class="fas fa-search icone-nenhum-produto"></i>
@@ -277,14 +347,10 @@
       </div>
     </div>
     
-    <!-- Grade de cards de produto quando houver itens filtrados. -->
     <div class="grade-produtos" *ngIf="produtosFiltrados.length > 0">
-      <!-- Cada card representa um produto disponível. -->
       <div class="cartao-produto" *ngFor="let produto of produtosFiltrados">
         <div class="imagem-produto">
-          <!-- Imagem do produto com src dinâmico e alt para acessibilidade. -->
           <img [src]="produto.imagem" [alt]="produto.nome">
-          <!-- Selo de promoção aparece somente quando há desconto. -->
           <div class="selo-produto" *ngIf="produto.promocao">
             <span>-{{ produto.desconto }}%</span>
           </div>
@@ -300,7 +366,6 @@
               <span class="preco-antigo" *ngIf="produto.precoAntigo">{{ produto.precoAntigo }}</span>
             </div>
             
-            <!-- Informação de estoque com destaque quando quantidade for baixa. -->
             <div class="info-estoque">
               <i class="fas fa-box" [class.estoque-baixo]="produto.quantidade < 5"></i>
               <span [class.estoque-baixo]="produto.quantidade < 5">
@@ -310,7 +375,6 @@
           </div>
           
           <div class="acoes-produto">
-            <!-- Botão de adicionar ao carrinho; fica desabilitado se o produto estiver indisponível. -->
             <button class="botao botao-primario" (click)="adicionarAoCarrinho(produto.nome)" [disabled]="produto.quantidade === 0">
               <i class="fas fa-cart-plus"></i>
               {{ produto.quantidade === 0 ? 'Indisponível' : 'Adicionar ao Carrinho' }}
@@ -322,7 +386,6 @@
   </div>
 </section>
 
-<!-- Seção informativa sobre segurança e automedicação. -->
 <section class="info-seguranca">
   <div class="container">
     <div class="conteudo-seguranca">
@@ -337,7 +400,6 @@
   </div>
 </section>
 
-<!-- Rodapé com informações institucionais, contato, endereço e certificações. -->
 <footer class="rodape-principal">
   <div class="conteudo-rodape">
     <div class="secao-rodape">
@@ -385,6 +447,4 @@
   </div>
 </footer>
 
-<!-- Inclusão do CSS do Font Awesome para ícones. Observação: normalmente isso fica em index.html,
-     mas aqui funciona localmente para este template específico. -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

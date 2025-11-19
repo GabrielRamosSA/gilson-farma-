@@ -1,0 +1,108 @@
+
+    <nav id="menu-lateral">
+      <div class="menu-header">
+        <h2><i class="fas fa-pills icone-logo"></i>Gilson Farma</h2>
+      </div>
+      <ul>
+        <li><button class="ativo"><i class="fa fa-home"></i>Dashboard</button></li>
+        <li><button><i class="fa fa-medkit"></i>Adicionar Produtos</button></li>
+        <li><button><i class="fa fa-calendar"></i>Agendamentos</button></li>
+        <li><button><i class="fa fa-shopping-cart"></i>Carrinho</button></li>
+        <div class="menu-divider"></div>
+        <div class="menu-section-title">Configurações</div>
+        <li><button><i class="fa fa-user"></i>Perfil</button></li>
+        <li><button><i class="fa fa-cog"></i>Configurações</button></li>
+        <li><button (click)="sair()"><i class="fa fa-sign-out"></i>Sair</button></li>
+      </ul>
+    </nav>
+    <div id="conteudo">
+        <div class="dashboard-header">
+          <h1>Dashboard</h1>
+          <p class="data-atual">{{dataAtual | date:'EEEE, d MMMM yyyy':'':'pt-BR'}}</p>
+        </div>
+
+        <div class="cards-container">
+          <div class="card card-vendas">
+            <div class="card-icon">
+              <i class="fa fa-dollar"></i>
+            </div>
+            <div class="card-info">
+              <h3>Vendas Hoje</h3>
+              <p class="valor">R$ {{vendasHoje | number:'1.2-2'}}</p>
+              <span class="badge positivo"><i class="fa fa-arrow-up"></i> +12%</span>
+            </div>
+          </div>
+
+          <div class="card card-lucro">
+            <div class="card-icon">
+              <i class="fa fa-line-chart"></i>
+            </div>
+            <div class="card-info">
+              <h3>Lucro Mensal</h3>
+              <p class="valor">R$ {{lucroMensal | number:'1.2-2'}}</p>
+              <span class="badge positivo"><i class="fa fa-arrow-up"></i> +8%</span>
+            </div>
+          </div>
+
+          <div class="card card-pedidos">
+            <div class="card-icon">
+              <i class="fa fa-shopping-bag"></i>
+            </div>
+            <div class="card-info">
+              <h3>Pedidos Pendentes</h3>
+              <p class="valor">{{pedidosPendentes}}</p>
+              <span class="badge neutro">Aguardando</span>
+            </div>
+          </div>
+
+          <div class="card card-produtos">
+            <div class="card-icon">
+              <i class="fa fa-medkit"></i>
+            </div>
+            <div class="card-info">
+              <h3>Produtos Cadastrados</h3>
+              <p class="valor">{{totalProdutos}}</p>
+              <span class="badge info">Em estoque</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pedidos-section">
+          <div class="section-header">
+            <h2><i class="fa fa-bell"></i> Pedidos Aguardando Aprovação</h2>
+            <button class="btn-ver-todos">Ver Todos</button>
+          </div>
+
+          <div class="pedidos-lista">
+            <div class="pedido-card" *ngFor="let pedido of pedidosParaAprovar">
+              <div class="pedido-header">
+                <div class="pedido-info">
+                  <h4>{{pedido.cliente}}</h4>
+                  <span class="pedido-id">#{{pedido.id}}</span>
+                </div>
+                <span class="pedido-status status-pendente">Pendente</span>
+              </div>
+              <div class="pedido-itens">
+                <p><i class="fa fa-medkit"></i> {{pedido.itens}} itens</p>
+                <p><i class="fa fa-clock-o"></i> {{pedido.data | date:'dd/MM/yyyy HH:mm'}}</p>
+              </div>
+              <div class="pedido-footer">
+                <p class="pedido-valor">Total: <strong>R$ {{pedido.valor | number:'1.2-2'}}</strong></p>
+                <div class="pedido-acoes">
+                  <button class="btn-aprovar" (click)="aprovarPedido(pedido.id)">
+                    <i class="fa fa-check"></i> Aprovar
+                  </button>
+                  <button class="btn-rejeitar" (click)="rejeitarPedido(pedido.id)">
+                    <i class="fa fa-times"></i> Rejeitar
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="sem-pedidos" *ngIf="pedidosParaAprovar.length === 0">
+              <i class="fa fa-check-circle"></i>
+              <p>Nenhum pedido pendente no momento</p>
+            </div>
+          </div>
+        </div>
+  </div>

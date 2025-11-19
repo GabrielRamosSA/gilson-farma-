@@ -1,80 +1,46 @@
-<!-- Componente de Toast do PrimeNG para exibir mensagens/alertas na tela -->
-<!-- Observação: requer ToastModule e MessageService configurados no componente -->
-<p-toast></p-toast>
-
-<!-- Container com estilos de cartão definidos em tabela.component.css -->
 <div class="tabela-container">
-  <!-- Tabela do PrimeNG. A propriedade [value] recebe a lista de agendamentos do componente TS -->
-  <!-- Observação: certifique-se de importar o TableModule no componente/módulo -->
   <p-table [value]="agendamentos">
- 
-    <!-- Template do cabeçalho da tabela: define os títulos das colunas -->
     <ng-template pTemplate="header">
       <tr>
-        <!-- Coluna para o nome completo do paciente -->
         <th>Nome Completo</th>
-        <!-- Coluna para a data de nascimento -->
         <th>Data de Nascimento</th>
-        <!-- Coluna para o telefone de contato -->
-        <!-- Dica: padronize a acentuação, por exemplo "Número de telefone" -->
-        <th>Numero de telefone</th>
-        <!-- Coluna para o bairro -->
+        <th>Número de Telefone</th>
         <th>Bairro</th>
-        <!-- Coluna para a rua -->
         <th>Rua</th>
-        <!-- Coluna para o número da residência -->
         <th>Número da Casa</th>
-        <!-- Coluna para o dia da consulta (selecionado no formulário) -->
         <th>Dia da Consulta</th>
-        <!-- Coluna para o horário agendado -->
         <th>Horário da Consulta</th>
-
       </tr>
     </ng-template>
 
-    <!-- Template do corpo da tabela: renderiza cada agendamento (linha) -->
-    <!-- let-agendamento expõe o item atual; let-i="rowIndex" expõe o índice da linha -->
-    <ng-template pTemplate="body" let-agendamento let-i="rowIndex">
+    <ng-template pTemplate="body" let-agendamento>
       <tr>
-        <!-- Célula com o nome completo -->
         <td>{{ agendamento.nome }}</td>
-        <!-- Célula com a data de nascimento -->
-        <!-- Dica: se desejar, pode formatar datas com pipes (ex.: date) -->
         <td>{{ agendamento.dataNascimento }}</td>
-        <!-- Célula com o número de telefone -->
         <td>{{ agendamento.numeroTelefone }}</td>
-        <!-- Célula com o bairro -->
         <td>{{ agendamento.bairro }}</td>
-        <!-- Célula com a rua -->
         <td>{{ agendamento.rua }}</td>
-        <!-- Célula com o número da casa -->
         <td>{{ agendamento.numero }}</td>
-        <!-- Célula com o dia escolhido para a consulta -->
         <td>{{ agendamento.dia }}</td>
-        <!-- Célula com o horário escolhido -->
         <td>{{ agendamento.hora }}</td>
       </tr>
     </ng-template>
   </p-table>
 
-
-  <!-- Botão para voltar (aciona método voltar() no TS) -->
-  <!-- Observação: considere mover estes estilos inline para o CSS para melhor manutenção -->
   <button id="voltar"
     style="
-      margin-top: 20px; /* Dá espaço acima do botão */
-      padding: 10px 20px; /* Aumenta a área clicável do botão */
-      border: none; /* Remove bordas padrão do botão */
-      border-radius: 5px; /* Deixa as bordas arredondadas */
-      background-color: #007ad9; /* Cor principal do botão (azul) */
-      color: #fff; /* Texto branco para bom contraste */
-      font-size: 16px; /* Tamanho de fonte confortável */
-      cursor: pointer; /* Indica interatividade */
-      transition: background-color 0.3s; /* Suaviza mudança de cor no hover */
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007ad9;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
     "
-    (click)="voltar()"  <!-- Chama o método voltar() no componente TS -->
+    (click)="voltar()"
   >
-    <!-- Texto exibido no botão -->
     Voltar
   </button>
 </div>

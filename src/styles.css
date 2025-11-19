@@ -1,24 +1,12 @@
-/* Importa o tema "Lara Light Blue" do PrimeNG, que define cores e estilos visuais dos componentes */
+
 @import "primeng/resources/themes/lara-light-blue/theme.css";
-/* Importa os estilos base do PrimeNG (estrutura e utilitários dos componentes) */
 @import "primeng/resources/primeng.css";
-/* Importa a biblioteca de ícones PrimeIcons usada pelos componentes PrimeNG (ex.: pi pi-search) */
 @import "primeicons/primeicons.css";
-/* Importa os estilos do ngx-toastr para exibir notificações toast com aparência padrão */
 @import 'ngx-toastr/toastr';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 
-/* Garante que html e body ocupem 100% da altura da janela do navegador */
 html, body { height: 100%; }
-
-/* Estilos globais do body: remove margens padrão, define fonte e cor de fundo do aplicativo */
-body {
-    margin: 0; /* remove o espaçamento padrão do navegador */
-    font-family: Arial, sans-serif; /* fonte padrão do app */
-    background-color: rgb(233, 231, 231); /* tom claro para o fundo geral */
+body { margin: 0; font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; 
+    background-color: rgb(233, 231, 231);
 }
-
-/* Observação: as duas regras a seguir repetem definições anteriores (duplicadas).
-     Não quebram nada, mas podem ser removidas para evitar redundância e facilitar manutenção. */
-html, body { height: 100%; }
-body { margin: 0;  font-family: Arial, sans-serif; }

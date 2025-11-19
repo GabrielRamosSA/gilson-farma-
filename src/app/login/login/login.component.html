@@ -1,38 +1,17 @@
-<!-- Componente de mensagens (toasts) do PrimeNG; exibe feedback como sucesso/erro. -->
 <p-toast></p-toast>
-<!-- Contêiner externo que centraliza o cartão de login na tela. -->
 <div id="container-pai">
-  <!-- Cartão/caixa branca do formulário de login. -->
   <div id="container">
-    <!-- Formulário reativo do Angular:
-         - [formGroup] associa o template ao FormGroup criado no .ts
-         - (ngSubmit) dispara o método onSubmit() ao enviar o formulário
-         - id ajuda no CSS e na identificação do form -->
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" id="formulario">
-      <!-- Grupo que empilha os campos em coluna com espaçamento confortável. -->
       <div id="grupo-de-input">
-        <!-- Rótulo do campo de usuário; o atributo for relaciona com o input de id correspondente. -->
         <label for="usuario"><strong>Usuário</strong></label>
-        <!-- Campo de texto para digitar o usuário:
-             - pInputText aplica o estilo do PrimeNG
-             - formControlName liga o input ao controle "usuario" no FormGroup -->
         <input type="text" id="usuario" placeholder="Usuário" pInputText formControlName="usuario" />
 
-        <!-- Rótulo do campo de senha. -->
         <label for="senha"><strong>Senha</strong></label>
-        <!-- Campo de senha:
-             - type="password" oculta os caracteres digitados
-             - pInputText mantém a padronização visual com PrimeNG
-             - formControlName liga ao controle "senha" -->
         <input type="password" id="senha" placeholder="Senha" pInputText formControlName="senha" />
 
-        <!-- Área dos botões; o estilo inline adiciona um espaçamento superior adicional. -->
         <div id="botao" style="margin-top: 20px;">
-          <!-- Botão de envio do formulário:
-               - pButton estiliza o botão com o tema do PrimeNG
-               - type="submit" aciona o (ngSubmit) do <form>
-               - label define o texto exibido no botão -->
           <button pButton type="submit" label="Entrar"></button>
+          <button pButton type="button" label="Voltar" class="p-button-secondary" (click)="voltar()"></button>
         </div>
       </div>
     </form>

@@ -1,123 +1,121 @@
-body { /* Aqui eu digo que vou estilizar o corpo inteiro da página. */
-  background-color: #f4f4f4; /* Fundo cinza bem claro para dar um contraste suave e não cansar a vista. */
-  display: flex; /* Ativo o Flexbox para poder centralizar os elementos com facilidade. */
-  justify-content: center; /* Centralizo horizontalmente o conteúdo dentro do body. */
-  align-items: center; /* Centralizo verticalmente o conteúdo dentro do body. */
-  height: 100vh; /* Faço o body ocupar 100% da altura visível da janela. */
-  margin: 0; /* Removo as margens padrão do navegador para evitar espaçamentos indesejados. */
-} /* Fim do bloco do body. */
+body {
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  margin: 0;
+}
 
-#container-pai { /* Este contêiner mantém o cartão do formulário centralizado na página. */
-  width: 100%; /* Ele ocupa toda a largura disponível. */
-  height: 100%; /* E também toda a altura disponível do elemento pai. */
-  display: flex; /* Uso Flexbox para posicionar o conteúdo interno. */
-  justify-content: center; /* Centralizo horizontalmente o conteúdo interno. */
-  align-items: center; /* Centralizo verticalmente o conteúdo interno. */
-} /* Fim do bloco do #container-pai. */
+#container-pai {
+  width: 100%;
+  height: 100%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-#container { /* Este é o “cartão” branco onde o formulário fica. */
-  background: #fff; /* Fundo branco para destacar os campos em relação ao fundo da página. */
-  padding: 20px 40px; /* Espaçamento interno confortável: 20px em cima/baixo e 40px nas laterais. */
-  border-radius: 10px; /* Canto levemente arredondado para um visual mais amigável. */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave para dar sensação de profundidade. */
-  max-width: 500px; /* Limito a largura máxima para não ficar muito largo em telas grandes. */
-  width: 100%; /* Dentro do limite, ele cresce até ocupar toda a largura disponível. */
-  display: flex; /* Organizo o conteúdo interno com Flexbox. */
-  flex-direction: column; /* Empilho os elementos do formulário em coluna (um abaixo do outro). */
-  justify-content: center; /* Alinho o conteúdo no centro no eixo principal (vertical, já que é coluna). */
-  align-items: center; /* Alinho os itens horizontalmente ao centro. */
-} /* Fim do bloco do #container. */
+#container {
+  background: #fff;
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-#grupo-de-input { /* Área que agrupa os campos de entrada do formulário. */
-  width: 100%; /* O grupo ocupa toda a largura do contêiner. */
-  display: flex; /* Uso Flexbox para facilitar o empilhamento. */
-  flex-direction: column; /* Empilho cada campo um abaixo do outro. */
-} /* Fim do bloco do #grupo-de-input. */
+#grupo-de-input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
-label { /* Estilo dos rótulos acima dos campos. */
-  font-weight: bold; /* Deixo o texto em negrito para melhorar a leitura. */
-  margin-top: 10px; /* Espaço acima do rótulo para respirar visualmente. */
-  margin-bottom: 5px; /* Espaço abaixo para separar do campo correspondente. */
-  color: #333; /* Cor cinza escura – bom contraste sem ser preto absoluto. */
-} /* Fim do bloco de label. */
+label {
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  color: #333;
+}
 
-input[type="text"], p-calendar, p-dropdown { /* Campos de texto e componentes do PrimeNG (calendário e dropdown). */
-  width: 100%; /* Todos ocupam a largura total do contêiner para alinhamento consistente. */
-  margin-bottom: 15px; /* Espaço abaixo de cada campo para separação vertical. */
-  border-radius: 5px; /* Cantos levemente arredondados para o campo. */
-} /* Fim do bloco dos campos de entrada. */
+input[type="text"], p-calendar, p-dropdown {
+  width: 100%;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
 
-p-button { /* Contêiner do botão do PrimeNG. */
-  margin-left: 20px; /* Um respiro à esquerda (pode ser útil em layouts com múltiplos botões). */
-  width: 60px; /* Largura inicial definida (será sobrescrita abaixo por width: 100%). */
-  height: 60px; /* Altura do contêiner do botão. */
-  display: flex; /* Uso Flexbox para centralizar o botão dentro do contêiner. */
-  justify-content: center; /* Centralizo o conteúdo horizontalmente. */
-  width: 100%; /* Esta regra prevalece: o contêiner passa a ocupar 100% da largura disponível. */
-  max-width: 200px; /* Mas nunca passa de 200px de largura para não ficar exagerado. */
-  margin-top: 10px; /* Espaçamento acima do botão para separá-lo dos campos. */
-} /* Fim do bloco de p-button. */
+p-button {
+  margin-left: 20px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 200px;
+  margin-top: 10px;
+}
 
-p-button button { /* Aqui estilizo o botão real que fica dentro do componente p-button. */
+p-button button {
  
-  width: 100%; /* O botão ocupa toda a largura do seu contêiner. */
-  padding: 10px; /* Espaçamento interno para aumentar a área clicável e conforto visual. */
-  border: none; /* Removo a borda padrão para um visual mais limpo. */
-  border-radius: 5px; /* Deixo os cantos do botão arredondados. */
-  background-color: #007ad9; /* Cor azul padrão do botão (destaca a ação). */
-  color: #fff; /* Texto branco para bom contraste com o fundo azul. */
-  font-size: 16px; /* Tamanho de fonte confortável para leitura. */
-  cursor: pointer; /* Mostra a “mãozinha” ao passar o mouse, indicando que é clicável. */
-  transition: background-color 0.3s; /* Animação suave quando a cor de fundo mudar (no hover). */
-} /* Fim do bloco de p-button button. */
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007ad9;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
-p-button button:hover { /* Efeito quando o mouse passa por cima do botão. */
-  background-color: #005fa3; /* Escureço um pouco o azul para dar feedback visual. */
-} /* Fim do hover do botão. */
-
-#botao{ /* Contêiner para agrupar botões. */
-  display: flex; /* Uso Flexbox para organizar os botões. */
-  justify-content: center; /* Centralizo os botões no eixo horizontal. */
-  flex-direction: start; /* Atenção: 'start' não é um valor válido para flex-direction; talvez você queira 'row' ou ajustar alinhamento com 'align-items'/'justify-content'. */
-} /* Fim do bloco de #botao. */
-
-@media (max-width: 600px) { /* Regras específicas para telas pequenas (até 600px) – foco no mobile. */
-  body { /* Ajustes do corpo da página no mobile. */
-    height: 100%; /* No mobile, deixo a altura crescer conforme o conteúdo em vez de travar em 100vh. */
-    background-color: white; /* Fundo branco para um visual mais “flat” em telas pequenas. */
-  } /* Fim do bloco body dentro do media query. */
+p-button button:hover {
+  background-color: #005fa3;
+}
+#botao{
+  display: flex;
+  justify-content: center;
+  flex-direction: start;
+}
+@media (max-width: 600px) {
+  body {
+    height: 100%; 
+    background-color: white;
+  }
   
-  #container-pai { /* Contêiner externo no mobile. */
-    background-color: white; /* Mantenho o fundo branco para continuidade visual. */
-    width: 100%; /* Ocupa toda a largura disponível. */
-    height: 900px; /* Altura fixa (pode ser ajustada conforme a necessidade do layout). */
-    border-radius: 20px; /* Cantos mais arredondados para destacar como um “card” em mobile. */
-  } /* Fim do bloco #container-pai no mobile. */
+  #container-pai {
+    background-color: white;
+    width: 100%;
+    height: 900px; 
+    border-radius: 20px;
+  }
   
-  #container { /* Cartão do formulário no mobile. */
-    padding: 20px; /* Reduzo o padding lateral para caber melhor em telas pequenas. */
-    border-radius: 20px; /* Primeiro defino cantos arredondados... */
-    width: 100%; /* Ocupa a largura total do espaço disponível. */
-    height: 100%; /* Deixo o cartão crescer com o conteúdo. */
-    box-shadow: none; /* Removo a sombra para um visual mais “flat” e limpo no mobile. */
-    border-radius: 0; /* ...mas aqui eu zero os cantos – esta regra prevalece sobre a anterior. */
-  } /* Fim do bloco #container no mobile. */
+  #container {
+    padding: 20px;
+    border-radius: 20px;
+    width: 100%;
+    height: 100%; 
+    box-shadow: none; 
+    border-radius: 0; 
+  }
 
-  #grupo-de-input input[type="text"], /* A partir daqui, ajusto larguras de campos no mobile. */
+  #grupo-de-input input[type="text"],
   #grupo-de-input input[type="password"],
   #grupo-de-input p-calendar,
   #grupo-de-input p-dropdown,
   #grupo-de-input .p-inputtext,
   #grupo-de-input .p-inputmask {
-    width: 350px; /* Defino uma largura fixa de 350px para os campos no mobile (pode ser ajustado para responsividade total). */
-  } /* Fim do bloco de inputs no mobile. */
+    width: 350px;
+  }
 
-  #butao{ /* Possível erro de digitação: diferente de #botao acima; verifique qual é o ID correto no HTML. */
-    max-width: 600px; /* Limito a largura máxima do contêiner de botões no mobile. */
-  } /* Fim do bloco #butao no mobile. */
-  p-button { /* Ajustes do contêiner de botão no mobile. */
-    width: 100%; /* Primeiro digo que ocupa 100%... */
-    width: 100px; /* ...mas esta regra logo em seguida limita para 100px (esta é a que realmente vale). */
-    height: 60px; /* Altura do botão no mobile. */
-  } /* Fim do bloco p-button no mobile. */
-} /* Fim do media query de até 600px. */
+  #butao{
+    max-width: 600px;
+  }
+  p-button {
+    width: 100%;
+    width: 100px;
+    height: 60px;
+  }
+}

@@ -1,41 +1,17 @@
-<!-- Botão de atalho para a tela de login. 
-     - icon="pi pi-user": mostra o ícone de usuário (PrimeIcons)
-     - [rounded]="true": deixa o botão circular/arredondado
-     - severity="info": cor/tema informativo do PrimeNG
-     - [outlined]="true": estilo de contorno (sem fundo sólido)
-     - routerLink="/login": navega para a rota de login quando clicado
-     - (click)="login()": ainda dispara o método login() do componente -->
 <p-button icon="pi pi-user" [rounded]="true" severity="info" [outlined]="true" routerLink="/login" (click)="login()" />
 
-<!-- Contêiner externo que centraliza todo o conteúdo do formulário -->
 <div id="container-pai">
-    <!-- Cartão/caixa branca onde o formulário fica posicionado -->
     <div id="container">
-        <!-- Formulário reativo do Angular.
-             - (ngSubmit)="onSubmit()": ao enviar o form, chama o método onSubmit do componente
-             - [formGroup]="formGroup": associa o form ao FormGroup reativo criado no TS
-             - id="formulario": útil para CSS e identificação -->
+    
         <form (ngSubmit)="onSubmit()" [formGroup]="formGroup" id="formulario">
-            <!-- Grupo que empilha todos os campos de entrada em coluna -->
             <div id="grupo-de-input">
 
-                <!-- Rótulo do campo Nome Completo -->
+         
                 <label for="nome"><strong>Nome Completo</strong></label>
-                <!-- Campo de texto para o nome completo.
-                     - id="nome": vínculo com o label via atributo for
-                     - placeholder="Nome": dica de preenchimento
-                     - pInputText: diretiva do PrimeNG para estilizar input
-                     - formControlName="nome": conecta ao controle "nome" no FormGroup -->
                 <input type="text" id="nome" placeholder="Nome" pInputText formControlName="nome" />
 
-                <!-- Rótulo para a data de nascimento -->
+            
                 <label for="dataNascimento"><strong>Data de nascimento</strong></label>
-                <!-- Campo de máscara de entrada para data.
-                     - p-inputMask: componente PrimeNG para mascarar a digitação
-                     - formControlName="dataNascimento": conecta ao controle do formulário
-                     - mask="99/99/9999": força o formato dd/mm/aaaa na digitação
-                     - showIcon="true": exibe ícone (dependendo do tema/integração)
-                     - dateFormat="dd/mm/yy": formato interno do componente (quando aplicável) -->
                 <p-inputMask
                     formControlName="dataNascimento"
                     id="dataNascimento"
@@ -45,11 +21,7 @@
                     dateFormat="dd/mm/yy"
                 ></p-inputMask>
 
-                <!-- Rótulo do campo Número de telefone -->
                 <label for="numeroTelefone"><strong>Número de telefone</strong></label>
-                <!-- Campo com máscara para telefone.
-                     - mask="99-999999999": define o padrão de dígitos e hífen
-                     - placeholder="(99)-999999999": exemplo do formato esperado -->
                 <p-inputMask 
                     id="numeroTelefone"
                     mask="99-999999999" 
@@ -57,30 +29,17 @@
                     placeholder="(99)-999999999"
                 ></p-inputMask>
 
-                <!-- Rótulo do campo Bairro -->
                 <label for="bairro"><strong>Bairro</strong></label>
-                <!-- Campo de texto para o bairro -->
                 <input type="text" id="bairro" placeholder="Bairro" pInputText formControlName="bairro" />
 
-                <!-- Rótulo do campo Rua -->
+        
                 <label for="rua"><strong>Rua</strong></label>
-                <!-- Campo de texto para o nome da rua -->
                 <input type="text" id="rua" placeholder="Rua" pInputText formControlName="rua" />
   
-                <!-- Rótulo do campo Número da casa -->
                 <label for="numeroCasa"><strong>Número da casa</strong></label>
-                <!-- Campo de texto para o número residencial.
-                     Observação: o id está "numero" e o formControlName é "numero"; 
-                     o label aponta para "numeroCasa". Se quiser acessibilidade perfeita,
-                     alinhar id/for para o mesmo valor. -->
                 <input type="text" id="numero" placeholder="Número da casa" pInputText formControlName="numero" />
         
-                <!-- Rótulo para seleção do dia da consulta -->
                 <label for="selecionarDias"><strong>Dia da consulta</strong></label>
-                <!-- Dropdown de dias.
-                     - [options]="dias": lista de opções vinda do componente TS
-                     - optionLabel="dia": qual propriedade do objeto exibir no dropdown
-                     - placeholder="Dia": texto mostrado quando nada foi selecionado -->
                 <p-dropdown 
                     id="selecionarDias"
                     formControlName="selecionarDias" 
@@ -89,11 +48,7 @@
                     placeholder="Dia"
                 ></p-dropdown>
 
-                <!-- Rótulo para seleção do horário da consulta -->
                 <label for="selecionarHorarios"><strong>Horário da consulta</strong></label>
-                <!-- Dropdown de horários.
-                     - [options]="horarios": opções de horário do componente TS
-                     - optionLabel="hora": propriedade exibida de cada item -->
                 <p-dropdown 
                     id="selecionarHorarios"
                     formControlName="selecionarHorarios" 
@@ -102,18 +57,11 @@
                     placeholder="Horário"
                 ></p-dropdown>
 
-                <!-- Componente de toast para mensagens; com breakpoints para ficar responsivo em telas menores -->
                 <p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }"></p-toast>
 
-                <!-- Área dos botões de ação do formulário.
-                     Observação: o CSS mobile usa #butao (sem o segundo "o"). 
-                     Aqui está #botao. Se quiser estilizar no mobile, alinhar os seletores. -->
+    
                 <div id="botao">
 
-                    <!-- Botão para enviar o formulário e agendar a consulta.
-                         - type="submit": dispara o ngSubmit do <form>
-                         - mat-flat-button/color="primary": estilos do Angular Material (caso ativos)
-                         - label="Agendar consulta": texto do botão -->
                     <p-button 
                         type="submit" 
                         mat-flat-button 
@@ -121,9 +69,7 @@
                         label="Agendar consulta"
                     ></p-button>
 
-                    <!-- Botão que navega para a tabela de consultas.
-                         - routerLink="/tabela": muda a rota sem recarregar a página
-                         - (click)="tabela()": também chama o método tabela() para lógicas adicionais -->
+            
                     <p-button 
                         mat-flat-button 
                         color="primary" 
@@ -131,9 +77,6 @@
                         (click)="tabela()"
                         label="Tabela de consulta"
                     ></p-button>
-                    <!-- Botão que navega para a área de medicamentos.
-                         - routerLink="/medicamento": rota de medicamentos
-                         - (click)="medicamentos()": chama método para ações extras -->
                     <p-button
                     mat-flat-button 
                         color="primary" 

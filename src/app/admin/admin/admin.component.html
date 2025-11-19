@@ -1,46 +1,34 @@
-<!-- Toast do PrimeNG para exibir mensagens (sucesso/erro/aviso) -->
-<!-- Observação: requer ToastModule e MessageService configurados no componente -->
 <p-toast></p-toast>
-
-<!-- Container com visual de cartão (ver admin.component.css) -->
 <div class="tabela-container">
-  <!-- Tabela PrimeNG exibindo a lista de agendamentos do administrador -->
-  <!-- Certifique-se de ter TableModule importado no componente standalone -->
   <p-table [value]="agendamentos">
 
-    <!-- Cabeçalho da tabela: define as colunas que serão mostradas -->
     <ng-template pTemplate="header">
       <tr>
-        <th>Nome Completo</th> <!-- Coluna do nome do paciente -->
-        <th>Data de Nascimento</th> <!-- Coluna da data de nascimento -->
-        <!-- Dica: padronize acentuação: "Numero de telefone" -> "Número de telefone" -->
-        <th>Numero de telefone</th> <!-- Coluna do telefone de contato -->
-        <th>Bairro</th> <!-- Coluna do bairro -->
-        <th>Rua</th> <!-- Coluna da rua -->
-        <th>Número da Casa</th> <!-- Coluna do número da casa -->
-        <th>Dia da Consulta</th> <!-- Coluna do dia agendado -->
-        <th>Horário da Consulta</th> <!-- Coluna do horário agendado -->
+        <th>Nome Completo</th>
+        <th>Data de Nascimento</th>
+        <th>Numero de telefone</th>
+        <th>Bairro</th>
+        <th>Rua</th>
+        <th>Número da Casa</th>
+        <th>Dia da Consulta</th>
+        <th>Horário da Consulta</th>
 
       </tr>
     </ng-template>
 
 
-    <!-- Corpo da tabela: percorre cada agendamento e cria uma linha -->
-    <!-- let-i="rowIndex" expõe o índice para ações como editar/remover -->
     <ng-template pTemplate="body" let-agendamento let-i="rowIndex">
       <tr>
-        <td>{{ agendamento.nome }}</td> <!-- Nome completo -->
-        <td>{{ agendamento.dataNascimento }}</td> <!-- Data de nascimento -->
-        <td>{{ agendamento.numeroTelefone }}</td> <!-- Telefone -->
-        <td>{{ agendamento.bairro }}</td> <!-- Bairro -->
-        <td>{{ agendamento.rua }}</td> <!-- Rua -->
-        <td>{{ agendamento.numero }}</td> <!-- Número da casa -->
-        <td>{{ agendamento.dia }}</td> <!-- Dia da consulta -->
-        <td>{{ agendamento.hora }}</td> <!-- Horário da consulta -->
+        <td>{{ agendamento.nome }}</td>
+        <td>{{ agendamento.dataNascimento }}</td>
+        <td>{{ agendamento.numeroTelefone }}</td>
+        <td>{{ agendamento.bairro }}</td>
+        <td>{{ agendamento.rua }}</td>
+        <td>{{ agendamento.numero }}</td>
+        <td>{{ agendamento.dia }}</td>
+        <td>{{ agendamento.hora }}</td>
         <td>
-          <!-- Botão de editar: abre o diálogo preenchendo o formulário com o item selecionado -->
           <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-info" (click)="showDialog(i)" title="Editar"></button>
-          <!-- Botão de remover: exclui o agendamento correspondente ao índice i -->
           <button pButton type="button" icon="pi pi-times" class="p-button-rounded p-button-text p-button-danger" (click)="removerAgendamento(i)" title="Remover"></button>
         </td>
       </tr>
@@ -48,25 +36,20 @@
   </p-table>
 
 
-  <!-- Diálogo modal para editar um agendamento existente -->
-  <!-- Requer DialogModule importado; [visible] é controlado pelo TS -->
   <p-dialog
-    header="Editar Paciente" <!-- Título do modal -->
-    [(visible)]="visible" <!-- Two-way binding controla abertura/fechamento -->
-    [modal]="true" <!-- Impede interação com o conteúdo atrás do modal -->
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" <!-- Larguras responsivas do modal -->
-    [style]="{ width: '50vw' }" <!-- Largura padrão do modal em telas grandes -->
-    [draggable]="false" <!-- Desabilita arrastar o modal -->
-    [resizable]="false" <!-- Desabilita redimensionar o modal -->
+    header="Editar Paciente"
+    [(visible)]="visible"
+    [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
+    [resizable]="false"
   >
-    <!-- Formulário reativo: ao enviar, chama onSubmit(); usa formGroup do TS -->
     <form (ngSubmit)="onSubmit()" [formGroup]="formGroup" id="formulario">
       <div id="grupo-de-input">
-        <!-- Campo: Nome completo -->
         <label for="nome"><strong>Nome Completo</strong></label>
         <input type="text" id="nome" placeholder="Nome" pInputText formControlName="nome" />
 
-        <!-- Campo: Data de nascimento (com máscara) -->
         <label for="dataNascimento"><strong>Data de nascimento</strong></label>
         <p-inputMask
           formControlName="dataNascimento"
@@ -75,7 +58,6 @@
           mask="99/99/9999"
         ></p-inputMask>
 
-        <!-- Campo: Número de telefone (com máscara) -->
         <label for="numeroTelefone"><strong>Número de telefone</strong></label>
         <p-inputMask 
           id="numeroTelefone"
@@ -84,19 +66,15 @@
           placeholder="(99)-999999999"
         ></p-inputMask>
 
-        <!-- Campo: Bairro -->
         <label for="bairro"><strong>Bairro</strong></label>
         <input type="text" id="bairro" placeholder="Bairro" pInputText formControlName="bairro" />
 
-        <!-- Campo: Rua -->
         <label for="rua"><strong>Rua</strong></label>
         <input type="text" id="rua" placeholder="Rua" pInputText formControlName="rua" />
 
-        <!-- Campo: Número da casa (apenas dígitos pelo Validators.pattern no TS) -->
         <label for="numero"><strong>Número da casa</strong></label>
         <input type="text" id="numero" placeholder="Número da casa" pInputText formControlName="numero" />
 
-        <!-- Campo: Dia da consulta (dropdown) -->
         <label for="dia"><strong>Dia da consulta</strong></label>
         <p-dropdown
           id="dia"
@@ -105,18 +83,15 @@
           placeholder="Selecione o dia"
         ></p-dropdown>
 
-        <!-- Campo: Horário da consulta (dropdown) -->
         <label for="hora"><strong>Horário da consulta</strong></label>
         <p-dropdown
           id="hora"
           formControlName="hora"
           [options]="horarios"
           placeholder="Selecione o horário"
-          [optionDisabled]="'disabled'" <!-- Desabilita opções com disabled=true em HorarioOption -->
+          [optionDisabled]="'disabled'"
         ></p-dropdown>
 
-        <!-- Ações do formulário: Salvar e Cancelar -->
-        <!-- Sugestão: mover estes estilos inline para o CSS por manutenção -->
         <div style="margin-top: 20px; display: flex; gap: 10px;">
           <button pButton type="submit" label="Salvar" class="p-button-success"></button>
           <button pButton type="button" label="Cancelar" class="p-button-secondary" (click)="visible=false"></button>
@@ -126,8 +101,6 @@
   </p-dialog>
 
 
-  <!-- Botão para voltar à página anterior definida no TS -->
-  <!-- Observação: considere mover estilos inline para admin.component.css -->
   <button id="voltar"
     style="
       margin-top: 20px;
@@ -140,7 +113,7 @@
       cursor: pointer;
       transition: background-color 0.3s;
     "
-    (click)="voltar()"  <!-- Chama o método voltar() do TS -->
+    (click)="voltar()"
   >
     Voltar
   </button>

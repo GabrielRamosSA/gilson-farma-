@@ -1,39 +1,13 @@
-<!-- Declara o tipo de documento como HTML5, garantindo comportamento consistente nos navegadores -->
 <!doctype html>
-
-<!-- Define o idioma padrão do documento como português do Brasil -->
 <html lang="pt-br">
 <head>
-  <!-- Define a codificação de caracteres para UTF-8, suportando acentuação e caracteres especiais corretamente -->
   <meta charset="utf-8">
-
-  <!-- Título que aparece na aba do navegador e em mecanismos de busca -->
-  <title>Gilson Farma</title>
-
-  <!-- Base de URLs da aplicação; essencial para o Angular Router resolver rotas e assets relativos -->
-  <!-- Mantendo "/" significa que todos os caminhos relativos partem da raiz do domínio -->
+  <title>Gilson-Farma</title>
   <base href="/">
-
-  <!-- Configura o viewport para responsividade, ajustando largura e zoom em dispositivos móveis -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Importa a família de fontes Roboto em diferentes pesos; usada pelo Material/estilos do app -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <!-- Importa o conjunto de ícones do Google (Material Icons) para uso via classe "material-icons" -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-  <!-- Sugestão: caso utilize Font Awesome em componentes (ex.: ícones no catálogo), é melhor referenciar aqui no <head>
-       para carregar globalmente. Ex.: <link rel="stylesheet" href="(link da CDN do Font Awesome)"> -->
-
-  <!-- Dica opcional: você pode adicionar meta tags como description ou theme-color para melhorar SEO e aparência do PWA -->
-  <!-- <meta name="description" content="Farmácia Gilson Farma - produtos, medicamentos e serviços."> -->
-  <!-- <meta name="theme-color" content="#1976d2"> -->
 </head>
-
-<!-- Aplica a classe de tipografia do Angular Material (se estiver usando), padronizando estilos de texto -->
 <body class="mat-typography">
-  <!-- Ponto de montagem da aplicação Angular: o componente raiz (AppComponent) é renderizado aqui -->
   <app-root></app-root>
 </body>
 </html>
