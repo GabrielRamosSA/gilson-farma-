@@ -306,7 +306,13 @@
           <i class="fas fa-times"></i> Limpar filtros
         </button>
       </div>
-      <h2 *ngIf="termoPesquisa.length === 0 && categoriaAtiva === 'Todos'">Nossos Medicamentos</h2>
+      <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <h2 *ngIf="termoPesquisa.length === 0 && categoriaAtiva === 'Todos'">Nossos Medicamentos</h2>
+        <button class="botao-filtro" (click)="carregarProdutos()" [disabled]="carregandoProdutos">
+          <i class="fas fa-sync-alt" [class.fa-spin]="carregandoProdutos"></i> 
+          {{ carregandoProdutos ? 'Carregando...' : 'Atualizar' }}
+        </button>
+      </div>
       
       <div class="opcoes-filtro">
         <button 

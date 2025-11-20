@@ -1,0 +1,688 @@
+.container-adicionar {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  padding: 2rem;
+}
+
+.header-pagina {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.btn-voltar {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  color: #60a5fa;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-voltar:hover {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: #60a5fa;
+  transform: translateX(-5px);
+}
+
+.header-pagina h1 {
+  color: #f1f5f9;
+  font-size: 2rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.formulario-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.secao-formulario {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid rgba(148, 163, 184, 0.1);
+}
+
+.secao-formulario:last-of-type {
+  border-bottom: none;
+}
+
+.secao-formulario h3 {
+  color: #60a5fa;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Upload de Imagem */
+.upload-imagem {
+  display: flex;
+  justify-content: center;
+}
+
+.preview-imagem {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(59, 130, 246, 0.3);
+}
+
+.preview-imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn-remover-imagem {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ef4444;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s;
+}
+
+.btn-remover-imagem:hover {
+  transform: scale(1.1);
+  background: #dc2626;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+.area-upload {
+  width: 400px;
+  height: 300px;
+  border: 3px dashed #60a5fa;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.area-upload:hover {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+  transform: scale(1.02);
+}
+
+.area-upload i {
+  font-size: 4rem;
+  color: #60a5fa;
+}
+
+.area-upload p {
+  font-size: 1.2rem;
+  color: #f1f5f9;
+  font-weight: 600;
+  margin: 0;
+}
+
+.area-upload span {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.area-upload input[type="file"] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Campos do Formulário */
+.campo-formulario {
+  margin-bottom: 1.5rem;
+}
+
+.campo-formulario label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #f1f5f9;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.campo-formulario label i {
+  color: #60a5fa;
+  margin-right: 0.5rem;
+}
+
+.campo-formulario input,
+.campo-formulario textarea,
+.campo-formulario select {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid rgba(148, 163, 184, 0.2);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s;
+  font-family: inherit;
+  background: rgba(15, 23, 42, 0.6);
+  color: #f1f5f9;
+}
+
+.campo-formulario input::placeholder,
+.campo-formulario textarea::placeholder {
+  color: #64748b;
+}
+
+.campo-formulario input:focus,
+.campo-formulario textarea:focus,
+.campo-formulario select:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.campo-formulario select option {
+  background: #0f172a;
+  color: #f1f5f9;
+}
+
+.campos-linha {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* Alertas e Informações */
+.info-promocao,
+.alerta-estoque,
+.info-palavras-chave {
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.info-promocao {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.alerta-estoque {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.info-palavras-chave {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.info-palavras-chave p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+}
+
+/* Botões de Ação */
+.acoes-formulario {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid rgba(148, 163, 184, 0.1);
+}
+
+.btn-cancelar,
+.btn-adicionar {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-cancelar {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.btn-cancelar:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+  transform: translateY(-2px);
+}
+
+.btn-adicionar {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  min-width: 200px;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-adicionar:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+}
+
+.btn-adicionar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #475569;
+}
+
+/* Botões de Toggle */
+.botoes-toggle {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  display: flex;
+  gap: 1rem;
+  background: rgba(30, 41, 59, 0.4);
+  padding: 1rem;
+  border-radius: 15px;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.btn-toggle {
+  flex: 1;
+  padding: 1rem 2rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 2px solid rgba(148, 163, 184, 0.2);
+  border-radius: 10px;
+  color: #94a3b8;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.btn-toggle:hover {
+  border-color: #60a5fa;
+  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.btn-toggle.ativo {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Seção Remover */
+.secao-remover {
+  padding: 2rem 0;
+}
+
+.secao-remover h2 {
+  color: #f1f5f9;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.busca-remover {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.busca-remover i.fa-search {
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #60a5fa;
+  font-size: 1.2rem;
+}
+
+.input-busca-remover {
+  width: 100%;
+  padding: 1.25rem 1.5rem 1.25rem 4rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 2px solid rgba(148, 163, 184, 0.2);
+  border-radius: 12px;
+  color: #f1f5f9;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.input-busca-remover:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.input-busca-remover::placeholder {
+  color: #64748b;
+}
+
+.btn-limpar-busca {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(239, 68, 68, 0.2);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: #ef4444;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-limpar-busca:hover {
+  background: rgba(239, 68, 68, 0.3);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.contador-produtos {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 10px;
+}
+
+.contador-produtos p {
+  margin: 0;
+  color: #60a5fa;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.lista-produtos-remover {
+  display: grid;
+  gap: 1rem;
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.lista-produtos-remover::-webkit-scrollbar {
+  width: 8px;
+}
+
+.lista-produtos-remover::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 4px;
+}
+
+.lista-produtos-remover::-webkit-scrollbar-thumb {
+  background: #60a5fa;
+  border-radius: 4px;
+}
+
+.produto-remover-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 2px solid rgba(148, 163, 184, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+
+.produto-remover-card:hover {
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.produto-remover-imagem {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid rgba(59, 130, 246, 0.3);
+}
+
+.produto-remover-imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.produto-remover-info {
+  flex: 1;
+}
+
+.produto-remover-info h3 {
+  color: #f1f5f9;
+  margin: 0 0 0.75rem 0;
+  font-size: 1.2rem;
+}
+
+.produto-remover-detalhes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.produto-remover-detalhes span {
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.badge-categoria {
+  background: rgba(139, 92, 246, 0.15);
+  color: #a78bfa;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.badge-tipo {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.badge-preco {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-estoque {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.badge-estoque.estoque-baixo {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.btn-remover-produto {
+  padding: 1rem 1.5rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 2px solid rgba(239, 68, 68, 0.3);
+  border-radius: 10px;
+  color: #ef4444;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.btn-remover-produto:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.btn-remover-produto:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sem-produtos {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #64748b;
+}
+
+.sem-produtos i {
+  font-size: 4rem;
+  color: #475569;
+  margin-bottom: 1.5rem;
+}
+
+.sem-produtos p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Estilos customizados para o modal do PrimeNG */
+::ng-deep .modal-confirmacao {
+  .p_dialog-header {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+    color: white !important;
+    border-radius: 12px 12px 0 0;
+    padding: 1.5rem;
+  }
+
+  .p_dialog-content {
+    background: rgba(30, 41, 59, 0.95) !important;
+    color: #f1f5f9 !important;
+    padding: 2rem;
+  }
+
+  .p_dialog-footer {
+    background: rgba(30, 41, 59, 0.95) !important;
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+    padding: 1.5rem;
+    border-radius: 0 0 12px 12px;
+  }
+}
+
+.modal-footer-custom {
+  display: flex;
+  gap: 1rem;
+  justify-content: center !important;
+}
+
+/* Customização dos botões do PrimeNG */
+::ng-deep .p-dialog .p-dialog-footer {
+  display: flex;
+  justify-content: center !important;
+  gap: 1rem;
+}
+
+::ng-deep .p-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .container-adicionar {
+    padding: 1rem;
+  }
+
+  .header-pagina {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .formulario-container {
+    padding: 1.5rem;
+  }
+
+  .campos-linha {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .area-upload {
+    width: 100%;
+  }
+
+  .acoes-formulario {
+    flex-direction: column;
+  }
+
+  .btn-cancelar,
+  .btn-adicionar {
+    width: 100%;
+  }
+
+  .botoes-toggle {
+    flex-direction: column;
+  }
+
+  .produto-remover-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .btn-remover-produto {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .produto-remover-detalhes {
+    justify-content: center;
+  }
+}

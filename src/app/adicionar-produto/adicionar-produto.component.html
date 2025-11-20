@@ -1,0 +1,319 @@
+<div class="container-adicionar">
+  <div class="header-pagina">
+    <button class="btn-voltar" (click)="voltar()">
+      <i class="fas fa-arrow-left"></i> Voltar
+    </button>
+    <h1><i class="fas fa-plus-circle"></i> Gerenciar Produtos</h1>
+  </div>
+
+  <!-- Botões de Toggle -->
+  <div class="botoes-toggle">
+    <button 
+      class="btn-toggle" 
+      [class.ativo]="!mostrarSecaoRemover"
+      (click)="mostrarSecaoRemover = false">
+      <i class="fas fa-plus-circle"></i> Adicionar Produto
+    </button>
+    <button 
+      class="btn-toggle" 
+      [class.ativo]="mostrarSecaoRemover"
+      (click)="toggleSecaoRemover()">
+      <i class="fas fa-trash-alt"></i> Remover Produto
+    </button>
+  </div>
+
+  <!-- Seção Adicionar Produto -->
+  <div class="formulario-container" *ngIf="!mostrarSecaoRemover">
+    <form class="formulario-produto" (ngSubmit)="adicionarProduto()">
+      
+      <!-- Upload de Imagem -->
+      <div class="secao-formulario">
+        <h3><i class="fas fa-image"></i> Imagem do Produto</h3>
+        <div class="upload-imagem">
+          <div class="preview-imagem" *ngIf="imagemPreview">
+            <img [src]="imagemPreview" alt="Preview">
+            <button type="button" class="btn-remover-imagem" (click)="removerImagem()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          
+          <div class="area-upload" *ngIf="!imagemPreview">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>Clique ou arraste uma imagem</p>
+            <span>PNG, JPG até 5MB</span>
+            <input 
+              type="file" 
+              accept="image/*" 
+              (change)="onImagemSelecionada($event)"
+              required>
+          </div>
+        </div>
+      </div>
+
+      <!-- Informações Básicas -->
+      <div class="secao-formulario">
+        <h3><i class="fas fa-info-circle"></i> Informações Básicas</h3>
+        
+        <div class="campo-formulario">
+          <label for="nome">
+            <i class="fas fa-tag"></i> Nome do Produto *
+          </label>
+          <input 
+            type="text" 
+            id="nome"
+            [(ngModel)]="produto.nome"
+            name="nome"
+            placeholder="Ex: Paracetamol 500mg"
+            required>
+        </div>
+
+        <div class="campo-formulario">
+          <label for="descricao">
+            <i class="fas fa-align-left"></i> Descrição *
+          </label>
+          <textarea 
+            id="descricao"
+            [(ngModel)]="produto.descricao"
+            name="descricao"
+            placeholder="Descreva o produto, suas indicações e benefícios..."
+            rows="4"
+            required></textarea>
+        </div>
+
+        <div class="campos-linha">
+          <div class="campo-formulario">
+            <label for="categoria">
+              <i class="fas fa-folder"></i> Categoria *
+            </label>
+            <select 
+              id="categoria"
+              [(ngModel)]="produto.categoria"
+              name="categoria"
+              required>
+              <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+            </select>
+          </div>
+
+          <div class="campo-formulario">
+            <label for="tipo">
+              <i class="fas fa-list"></i> Tipo *
+            </label>
+            <select 
+              id="tipo"
+              [(ngModel)]="produto.tipo"
+              name="tipo"
+              required>
+              <option *ngFor="let t of tipos" [value]="t">{{ t }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preços e Promoção -->
+      <div class="secao-formulario">
+        <h3><i class="fas fa-dollar-sign"></i> Preços</h3>
+        
+        <div class="campos-linha">
+          <div class="campo-formulario">
+            <label for="preco">
+              <i class="fas fa-money-bill-wave"></i> Preço Atual *
+            </label>
+            <input 
+              type="text" 
+              id="preco"
+              [(ngModel)]="produto.preco"
+              name="preco"
+              (blur)="formatarPreco('preco')"
+              (change)="calcularDesconto()"
+              placeholder="R$ 0,00"
+              required>
+          </div>
+
+          <div class="campo-formulario">
+            <label for="precoAntigo">
+              <i class="fas fa-tag"></i> Preço Anterior (Promoção)
+            </label>
+            <input 
+              type="text" 
+              id="precoAntigo"
+              [(ngModel)]="produto.precoAntigo"
+              name="precoAntigo"
+              (blur)="formatarPreco('precoAntigo')"
+              (change)="calcularDesconto()"
+              placeholder="R$ 0,00">
+          </div>
+        </div>
+
+        <div class="info-promocao" *ngIf="produto.promocao">
+          <i class="fas fa-percentage"></i>
+          <span>Desconto automático: {{ produto.desconto }}%</span>
+        </div>
+      </div>
+
+      <!-- Estoque -->
+      <div class="secao-formulario">
+        <h3><i class="fas fa-box"></i> Estoque</h3>
+        
+        <div class="campo-formulario">
+          <label for="quantidade">
+            <i class="fas fa-cubes"></i> Quantidade em Estoque *
+          </label>
+          <input 
+            type="number" 
+            id="quantidade"
+            [(ngModel)]="produto.quantidade"
+            name="quantidade"
+            min="0"
+            placeholder="0"
+            required>
+        </div>
+
+        <div class="alerta-estoque" *ngIf="produto.quantidade < 5 && produto.quantidade > 0">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span>Estoque baixo! Considere reabastecer.</span>
+        </div>
+      </div>
+
+      <!-- Palavras-chave Automáticas -->
+      <div class="secao-formulario">
+        <h3><i class="fas fa-search"></i> Palavras-chave (Geradas Automaticamente)</h3>
+        <div class="info-palavras-chave">
+          <i class="fas fa-info-circle"></i>
+          <p>As palavras-chave serão geradas automaticamente com base no nome, descrição e categoria do produto para facilitar a busca.</p>
+        </div>
+      </div>
+
+      <!-- Botões -->
+      <div class="acoes-formulario">
+        <button type="button" class="btn-cancelar" (click)="voltar()">
+          <i class="fas fa-times"></i> Cancelar
+        </button>
+        <button type="submit" class="btn-adicionar" [disabled]="carregando">
+          <i class="fas fa-check" *ngIf="!carregando"></i>
+          <i class="fas fa-spinner fa-spin" *ngIf="carregando"></i>
+          {{ carregando ? 'Adicionando...' : 'Adicionar Produto' }}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Seção Remover Produto -->
+  <div class="formulario-container" *ngIf="mostrarSecaoRemover">
+    <div class="secao-remover">
+      <h2><i class="fas fa-trash-alt"></i> Remover Produtos</h2>
+      
+      <div class="busca-remover">
+        <i class="fas fa-search"></i>
+        <input 
+          type="text" 
+          [(ngModel)]="termoPesquisaRemover"
+          [ngModelOptions]="{standalone: true}"
+          placeholder="Buscar produto por nome, categoria ou tipo..."
+          class="input-busca-remover">
+        <button 
+          *ngIf="termoPesquisaRemover" 
+          class="btn-limpar-busca"
+          type="button"
+          (click)="termoPesquisaRemover = ''">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="contador-produtos">
+        <p>
+          <i class="fas fa-box"></i> 
+          Mostrando {{ produtosFiltradosParaRemover.length }} de {{ produtosParaRemover.length }} produtos
+        </p>
+      </div>
+
+      <div class="lista-produtos-remover">
+        <div 
+          class="produto-remover-card" 
+          *ngFor="let produto of produtosFiltradosParaRemover">
+          <div class="produto-remover-imagem">
+            <img [src]="produto.imagem" [alt]="produto.nome">
+          </div>
+          
+          <div class="produto-remover-info">
+            <h3>{{ produto.nome }}</h3>
+            <div class="produto-remover-detalhes">
+              <span class="badge-categoria">
+                <i class="fas fa-folder"></i> {{ produto.categoria }}
+              </span>
+              <span class="badge-tipo">
+                <i class="fas fa-tag"></i> {{ produto.tipo }}
+              </span>
+              <span class="badge-preco">
+                <i class="fas fa-dollar-sign"></i> {{ produto.preco }}
+              </span>
+              <span class="badge-estoque" [class.estoque-baixo]="produto.quantidade < 5">
+                <i class="fas fa-box"></i> {{ produto.quantidade }} em estoque
+              </span>
+            </div>
+          </div>
+          
+          <button 
+            class="btn-remover-produto"
+            type="button"
+            (click)="removerProduto(produto.id, produto.nome)"
+            [disabled]="carregandoRemocao">
+            <i class="fas fa-trash-alt"></i>
+            Remover
+          </button>
+        </div>
+
+        <div class="sem-produtos" *ngIf="produtosFiltradosParaRemover.length === 0">
+          <i class="fas fa-inbox"></i>
+          <p *ngIf="termoPesquisaRemover">Nenhum produto encontrado para "{{ termoPesquisaRemover }}"</p>
+          <p *ngIf="!termoPesquisaRemover">Nenhum produto cadastrado</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmação PrimeNG -->
+  <p-dialog 
+    [(visible)]="mostrarModalConfirmacao" 
+    [modal]="true"
+    [closable]="false"
+    [style]="{width: '450px'}"
+    styleClass="modal-confirmacao">
+    
+    <ng-template pTemplate="header">
+      <div class="modal-header-custom">
+        <i class="pi pi-exclamation-triangle"></i>
+        <span>Confirmar Remoção</span>
+      </div>
+    </ng-template>
+    
+    <div class="modal-body-custom">
+      <p>Tem certeza que deseja remover o produto:</p>
+      <div class="produto-destaque">
+        <i class="pi pi-box"></i>
+        <strong> {{ produtoParaRemover?.nome }}</strong>
+      </div>
+      <p class="aviso">Esta ação não pode ser desfeita!</p>
+    </div>
+    
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-custom">
+        <p-button 
+          label="Cancelar" 
+          icon="pi pi-times" 
+          (onClick)="fecharModalConfirmacao()"
+          styleClass="p-button-text p-button-secondary"
+          [disabled]="carregandoRemocao">
+        </p-button>
+        <p-button 
+          label="Remover" 
+          icon="pi pi-trash" 
+          (onClick)="confirmarRemocao()"
+          styleClass="p-button-danger"
+          [loading]="carregandoRemocao">
+        </p-button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

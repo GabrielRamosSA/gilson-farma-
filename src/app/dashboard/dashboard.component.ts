@@ -62,4 +62,8 @@ export class DashboardComponent implements OnInit {
       this.pedidosService.removerPedido(id);
     }
   }
+
+  navegarParaAdicionar(): void {
+    this.router.navigate(['/adicionar-produto']);
+  }
 }
