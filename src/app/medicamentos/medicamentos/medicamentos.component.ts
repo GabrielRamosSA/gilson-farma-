@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PedidosService } from '../../services/pedidos.service';
 import { ProdutosService } from '../../services/produtos.service';
+import { MercadoPagoService } from '../../services/mercadopago.service';
 
 @Component({
   selector: 'app-medicamentos',
@@ -13,7 +14,7 @@ import { ProdutosService } from '../../services/produtos.service';
   standalone: true,
   imports: [CommonModule, FormsModule] 
 })
-export class MedicamentosComponent implements OnInit {
+export class MedicamentosComponent implements OnInit, OnDestroy {
   
   carrinho: { nome: string, quantidade: number }[] = [];
   
@@ -40,15 +41,31 @@ export class MedicamentosComponent implements OnInit {
   produtos: any[] = [];
   carregandoProdutos = false;
   
+  private intervalId: any;
+  pagamentoId: string | null = null;
+
   constructor(
     private router: Router, 
     private toastr: ToastrService,
     private pedidosService: PedidosService,
-    private produtosService: ProdutosService
+    private produtosService: ProdutosService,
+    private mercadoPagoService: MercadoPagoService
   ) {}
 
   ngOnInit() {
     this.carregarProdutos();
+    
+    // Atualizar produtos a cada 30 segundos automaticamente
+    this.intervalId = setInterval(() => {
+      this.carregarProdutosSilencioso();
+    }, 30000); // 30 segundos
+  }
+
+  ngOnDestroy() {
+    // Limpar intervalo quando sair da página
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 
   carregarProdutos() {
@@ -66,6 +83,18 @@ export class MedicamentosComponent implements OnInit {
         this.toastr.error('Erro ao carregar produtos. Usando dados locais.', 'Erro');
         this.carregandoProdutos = false;
         // Mantém a lista local como fallback se a API falhar
+      }
+    });
+  }
+
+  carregarProdutosSilencioso() {
+    // Carrega sem mostrar mensagem de sucesso
+    this.produtosService.getProdutos().subscribe({
+      next: (produtos) => {
+        this.produtos = produtos;
+      },
+      error: (error) => {
+        console.error('Erro ao atualizar produtos:', error);
       }
     });
   }
@@ -245,14 +274,7 @@ export class MedicamentosComponent implements OnInit {
       return;
     }
 
-    this.valorTotalPedido = this.carrinho.reduce((total, item) => {
-      const produto = this.produtos.find(p => p.nome === item.nome);
-      if (produto) {
-        const preco = parseFloat(produto.preco.replace('R$ ', '').replace(',', '.'));
-        return total + (preco * item.quantidade);
-      }
-      return total;
-    }, 0);
+    this.valorTotalPedido = this.calcularPrecoTotal();
 
     if (this.clienteForm.metodoPagamento === 'pix') {
       this.gerarQRCodePix();
@@ -262,10 +284,79 @@ export class MedicamentosComponent implements OnInit {
   }
 
   gerarQRCodePix() {
-    this.pixCopiaCola = this.gerarPixPayload();
-    this.qrCodePixData = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(this.pixCopiaCola)}`;
-    this.mostrarQRCodePix = true;
-    this.toastr.info('PIX gerado! Copie o código ou escaneie o QR Code', 'PIX Gerado', { timeOut: 5000 });
+    const valorTotal = this.calcularPrecoTotal();
+    
+    // Preparar dados do pedido
+    const descricaoPedido = JSON.stringify({
+      cliente: this.clienteForm.nome,
+      email: this.clienteForm.email,
+      telefone: this.clienteForm.telefone,
+      itens: this.carrinho
+    });
+
+    const dadosPagamento = {
+      transaction_amount: valorTotal,
+      description: descricaoPedido,
+      payer: {
+        email: this.clienteForm.email,
+        first_name: this.clienteForm.nome,
+        last_name: ''
+      }
+    };
+
+    this.toastr.info('Gerando PIX...', 'Aguarde');
+
+    this.mercadoPagoService.criarPagamentoPix(dadosPagamento).subscribe({
+      next: (response) => {
+        console.log('PIX gerado:', response);
+        
+        this.pagamentoId = response.id;
+        this.pixCopiaCola = response.qr_code;
+        this.qrCodePixData = `data:image/png;base64,${response.qr_code_base64}`;
+        this.mostrarQRCodePix = true;
+        
+        this.toastr.success('PIX gerado com sucesso!', 'Mercado Pago');
+        
+        // Iniciar verificação do pagamento
+        this.verificarPagamentoAutomatico();
+      },
+      error: (error) => {
+        console.error('Erro ao gerar PIX:', error);
+        this.toastr.error('Erro ao gerar PIX. Tente novamente.', 'Erro');
+      }
+    });
+  }
+
+  verificarPagamentoAutomatico() {
+    if (!this.pagamentoId) return;
+
+    // Verificar a cada 5 segundos se o pagamento foi aprovado
+    const intervalo = setInterval(() => {
+      if (!this.pagamentoId) {
+        clearInterval(intervalo);
+        return;
+      }
+
+      this.mercadoPagoService.verificarPagamento(this.pagamentoId).subscribe({
+        next: (response) => {
+          console.log('Status do pagamento:', response.status);
+          
+          if (response.status === 'approved') {
+            clearInterval(intervalo);
+            this.toastr.success('Pagamento confirmado!', 'Sucesso');
+            this.finalizarPedido();
+          }
+        },
+        error: (error) => {
+          console.error('Erro ao verificar pagamento:', error);
+        }
+      });
+    }, 5000); // Verifica a cada 5 segundos
+
+    // Parar de verificar após 10 minutos
+    setTimeout(() => {
+      clearInterval(intervalo);
+    }, 600000);
   }
 
   copiarCodigoPix() {
@@ -276,101 +367,43 @@ export class MedicamentosComponent implements OnInit {
     });
   }
 
-  gerarPixPayload(): string {
-    // IMPORTANTE: Esta chave PIX precisa estar cadastrada no seu Nubank
-    // Vá em: Nubank > Pix > Minhas Chaves > Cadastrar chave
-    const pixKey = '89988028209';
-    const merchantName = 'Gabriel Ramos';
-    const merchantCity = 'PICOS';
-    const valor = this.valorTotalPedido.toFixed(2);
-    
-    // Payload Format Indicator
-    let payload = '000201';
-    
-    // Point of Initiation Method (12 = static)
-    payload += '010212';
-    
-    // Merchant Account Information
-    const gui = '0014BR.GOV.BCB.PIX';
-    const chave = `01${pixKey.length.toString().padStart(2, '0')}${pixKey}`;
-    const merchantAccount = `${gui}${chave}`;
-    payload += `26${merchantAccount.length.toString().padStart(2, '0')}${merchantAccount}`;
-    
-    // Merchant Category Code
-    payload += '52040000';
-    
-    // Transaction Currency (986 = BRL)
-    payload += '5303986';
-    
-    // Transaction Amount
-    payload += `54${valor.length.toString().padStart(2, '0')}${valor}`;
-    
-    // Country Code
-    payload += '5802BR';
-    
-    // Merchant Name
-    payload += `59${merchantName.length.toString().padStart(2, '0')}${merchantName}`;
-    
-    // Merchant City
-    payload += `60${merchantCity.length.toString().padStart(2, '0')}${merchantCity}`;
-    
-    // Additional Data Field Template
-    const txid = 'GILSON' + Date.now().toString().slice(-6);
-    const additionalData = `05${txid.length.toString().padStart(2, '0')}${txid}`;
-    payload += `62${additionalData.length.toString().padStart(2, '0')}${additionalData}`;
-    
-    // CRC16
-    payload += '6304';
-    const crc = this.calcularCRC16(payload);
-    payload += crc;
-    
-    return payload;
-  }
-
-  calcularCRC16(payload: string): string {
-    let crc = 0xFFFF;
-    const bytes = new TextEncoder().encode(payload);
-    
-    for (let i = 0; i < bytes.length; i++) {
-      crc ^= bytes[i] << 8;
-      for (let j = 0; j < 8; j++) {
-        if ((crc & 0x8000) !== 0) {
-          crc = (crc << 1) ^ 0x1021;
-        } else {
-          crc = crc << 1;
-        }
-      }
-    }
-    
-    crc = crc & 0xFFFF;
-    return crc.toString(16).toUpperCase().padStart(4, '0');
-  }
-
   confirmarPagamentoPix() {
-    this.toastr.success('Aguardando confirmação do pagamento...', 'Processando');
-    setTimeout(() => {
-      this.finalizarPedido();
-    }, 2000);
+    // Botão "Já Paguei" - força a finalização
+    this.finalizarPedido();
   }
 
   finalizarPedido() {
-    this.pedidosService.adicionarPedido({
+    const pedidoData = {
       cliente: this.clienteForm.nome,
       email: this.clienteForm.email,
       telefone: this.clienteForm.telefone,
       endereco: this.clienteForm.endereco,
-      itens: this.carrinho.length,
-      produtos: [...this.carrinho],
+      tipoEntrega: this.clienteForm.tipoEntrega,
+      metodoPagamento: this.clienteForm.metodoPagamento,
+      produtos: this.carrinho, // Envia array de produtos
       valor: this.valorTotalPedido
-    });
+    };
 
-    const mensagem = this.clienteForm.tipoEntrega === 'delivery' 
-      ? 'Pedido enviado! Aguarde a aprovação para entrega.' 
-      : 'Pedido enviado! Retire na loja após aprovação.';
-    
-    this.toastr.success(mensagem, 'Sucesso');
-    this.carrinho = [];
-    this.fecharModalFinalizar();
+    console.log('📝 Salvando pedido no banco:', pedidoData);
+
+    // Usar subscribe para aguardar a resposta
+    this.pedidosService.adicionarPedidoComRetorno(pedidoData).subscribe({
+      next: (pedidoCriado) => {
+        console.log('✅ Pedido salvo com sucesso:', pedidoCriado);
+        
+        const mensagem = this.clienteForm.tipoEntrega === 'delivery' 
+          ? 'Pedido enviado! Aguarde a aprovação para entrega.' 
+          : 'Pedido enviado! Retire na loja após aprovação.';
+        
+        this.toastr.success(mensagem, 'Sucesso');
+        this.carrinho = [];
+        this.fecharModalFinalizar();
+      },
+      error: (error) => {
+        console.error('❌ Erro ao salvar pedido:', error);
+        this.toastr.error('Erro ao salvar pedido. Tente novamente.', 'Erro');
+      }
+    });
   }
 
   calcularPrecoTotal(): number {

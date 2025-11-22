@@ -29,16 +29,18 @@ model Produto {
 }
 
 model Pedido {
-  id         String   @id @default(uuid())
-  cliente    String
-  email      String
-  telefone   String
-  endereco   String?
-  produtos   Json
-  valor      Float
-  status     String   @default("pendente")
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id            String   @id @default(uuid())
+  cliente       String
+  email         String
+  telefone      String
+  endereco      String?
+  tipoEntrega   String
+  metodoPagamento String
+  produtos      Json     // Array de produtos
+  valorTotal    Float
+  status        String   @default("pendente") // pendente, aprovado, rejeitado
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@map("pedidos")
 }

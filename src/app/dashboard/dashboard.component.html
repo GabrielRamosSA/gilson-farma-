@@ -86,7 +86,7 @@
                 <p><i class="fa fa-clock-o"></i> {{pedido.data | date:'dd/MM/yyyy HH:mm'}}</p>
               </div>
               <div class="pedido-footer">
-                <p class="pedido-valor">Total: <strong>R$ {{pedido.valor | number:'1.2-2'}}</strong></p>
+                <p class="pedido-valor">Total: <strong>R$ {{pedido.valorTotal | number:'1.2-2'}}</strong></p>
                 <div class="pedido-acoes">
                   <button class="btn-aprovar" (click)="aprovarPedido(pedido.id)">
                     <i class="fa fa-check"></i> Aprovar

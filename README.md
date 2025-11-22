@@ -325,3 +325,42 @@ Cada desenvolvedor precisa ter:
 - ✅ PostgreSQL instalado e rodando
 - ✅ Um banco de dados criado
 - ✅ Suas próprias credenciais no arquivo `.env`
+
+---
+
+## 🌐 Expor Backend para Internet (Webhooks e Testes Externos)
+
+Para que o Mercado Pago possa enviar notificações de pagamento (webhooks) ou para testar de outros dispositivos, você precisa expor seu backend para a internet usando o **ngrok**.
+
+### 📥 Instalar o ngrok
+
+1. **Baixe o ngrok:**
+   - Acesse: https://ngrok.com/download
+   - Baixe para Windows e extraia o `ngrok.exe`
+
+2. **Crie uma conta gratuita:**
+   - https://dashboard.ngrok.com/signup
+
+3. **Autentique o ngrok:**
+   ```bash
+   cd C:\ngrok
+   .\ngrok.exe config add-authtoken SEU_TOKEN_AQUI
+   ```
+
+### 🚀 Expor o Backend
+
+```bash
+# 1. Certifique-se de que o backend está rodando
+cd backend
+npm run dev
+
+# 2. Em outro terminal, navegue até a pasta do ngrok
+cd C:\ngrok
+
+# 3. Expor a porta 3001 (backend)
+.\ngrok.exe http 3001
+```
+
+O ngrok vai gerar uma URL pública:
+
+````

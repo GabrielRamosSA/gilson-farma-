@@ -17,12 +17,13 @@ registerLocaleData(localePt);
 })
 export class DashboardComponent implements OnInit {
   dataAtual = new Date();
-  vendasHoje = 2547.80;
-  lucroMensal = 45890.50;
+  vendasHoje = 0;
+  lucroMensal = 0;
   pedidosPendentes = 0;
   totalProdutos = 156;
 
   pedidosParaAprovar: any[] = [];
+  carregandoEstatisticas = false;
 
   constructor(
     private router: Router, 
@@ -31,6 +32,7 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.carregarEstatisticas();
     this.carregarPedidos();
     this.pedidosService.pedidos$.subscribe(pedidos => {
       this.pedidosParaAprovar = pedidos;
@@ -38,28 +40,58 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  carregarEstatisticas() {
+    this.carregandoEstatisticas = true;
+    this.pedidosService.getEstatisticas().subscribe({
+      next: (stats) => {
+        this.vendasHoje = stats.vendasHoje;
+        this.lucroMensal = stats.lucroMensal;
+        this.pedidosPendentes = stats.pedidosPendentes;
+        this.carregandoEstatisticas = false;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar estatísticas:', error);
+        this.carregandoEstatisticas = false;
+      }
+    });
+  }
+
   carregarPedidos() {
-    this.pedidosParaAprovar = this.pedidosService.getPedidos();
-    this.pedidosPendentes = this.pedidosParaAprovar.length;
+    this.pedidosService.carregarPedidos();
   }
 
   sair(): void {
     this.router.navigateByUrl('/login');
   }
 
-  aprovarPedido(id: number): void {
+  aprovarPedido(id: string): void {
     const pedido = this.pedidosParaAprovar.find(p => p.id === id);
     if (pedido) {
-      this.toastr.success(`Pedido de ${pedido.cliente} aprovado!`, 'Sucesso');
-      this.pedidosService.removerPedido(id);
+      this.pedidosService.aprovarPedido(id).subscribe({
+        next: () => {
+          this.toastr.success(`Pedido de ${pedido.cliente} aprovado!`, 'Sucesso');
+          this.carregarEstatisticas(); // Atualizar estatísticas após aprovar
+        },
+        error: (error) => {
+          console.error('Erro ao aprovar pedido:', error);
+          this.toastr.error('Erro ao aprovar pedido', 'Erro');
+        }
+      });
     }
   }
 
-  rejeitarPedido(id: number): void {
+  rejeitarPedido(id: string): void {
     const pedido = this.pedidosParaAprovar.find(p => p.id === id);
     if (pedido) {
-      this.toastr.error(`Pedido de ${pedido.cliente} rejeitado`, 'Pedido Rejeitado');
-      this.pedidosService.removerPedido(id);
+      this.pedidosService.rejeitarPedido(id).subscribe({
+        next: () => {
+          this.toastr.error(`Pedido de ${pedido.cliente} rejeitado`, 'Pedido Rejeitado');
+        },
+        error: (error) => {
+          console.error('Erro ao rejeitar pedido:', error);
+          this.toastr.error('Erro ao rejeitar pedido', 'Erro');
+        }
+      });
     }
   }
 
