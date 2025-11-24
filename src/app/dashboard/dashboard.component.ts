@@ -20,7 +20,9 @@ export class DashboardComponent implements OnInit {
   vendasHoje = 0;
   lucroMensal = 0;
   pedidosPendentes = 0;
-  totalProdutos = 156;
+  totalProdutos = 0;
+  percentualVendasHoje = 0;
+  percentualLucroMensal = 0;
 
   pedidosParaAprovar: any[] = [];
   carregandoEstatisticas = false;
@@ -47,6 +49,9 @@ export class DashboardComponent implements OnInit {
         this.vendasHoje = stats.vendasHoje;
         this.lucroMensal = stats.lucroMensal;
         this.pedidosPendentes = stats.pedidosPendentes;
+        this.totalProdutos = stats.totalProdutos;
+        this.percentualVendasHoje = stats.percentualVendasHoje;
+        this.percentualLucroMensal = stats.percentualLucroMensal;
         this.carregandoEstatisticas = false;
       },
       error: (error) => {
@@ -69,7 +74,11 @@ export class DashboardComponent implements OnInit {
     if (pedido) {
       this.pedidosService.aprovarPedido(id).subscribe({
         next: () => {
-          this.toastr.success(`Pedido de ${pedido.cliente} aprovado!`, 'Sucesso');
+          this.toastr.success(
+            `Pedido de ${pedido.cliente} aprovado! Estoque atualizado automaticamente.`, 
+            'Sucesso', 
+            { timeOut: 4000 }
+          );
           this.carregarEstatisticas(); // Atualizar estatísticas após aprovar
         },
         error: (error) => {

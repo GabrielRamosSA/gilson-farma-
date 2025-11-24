@@ -48,7 +48,43 @@ export async function PATCH(
     console.log('🔄 Atualizando pedido:', id);
     console.log('Novo status:', body.status);
 
-    const pedido = await prisma.pedido.update({
+    // Se o status for "aprovado", atualizar o estoque dos produtos
+    if (body.status === 'aprovado') {
+      // Buscar o pedido para pegar os produtos
+      const pedido = await prisma.pedido.findUnique({
+        where: { id }
+      });
+
+      if (!pedido) {
+        return NextResponse.json(
+          { error: 'Pedido não encontrado' },
+          { status: 404 }
+        );
+      }
+
+      // Atualizar estoque de cada produto
+      const produtos = pedido.produtos as any[];
+      
+      for (const item of produtos) {
+        // Buscar o produto pelo nome
+        const produto = await prisma.produto.findFirst({
+          where: { nome: item.nome }
+        });
+
+        if (produto) {
+          const novaQuantidade = Math.max(0, produto.quantidade - item.quantidade);
+          
+          await prisma.produto.update({
+            where: { id: produto.id },
+            data: { quantidade: novaQuantidade }
+          });
+
+          console.log(`📦 Estoque atualizado: ${item.nome} - Quantidade anterior: ${produto.quantidade} → Nova: ${novaQuantidade}`);
+        }
+      }
+    }
+
+    const pedidoAtualizado = await prisma.pedido.update({
       where: { id },
       data: { 
         status: body.status,
@@ -58,7 +94,7 @@ export async function PATCH(
 
     console.log('✅ Pedido atualizado com sucesso!');
 
-    return NextResponse.json(pedido);
+    return NextResponse.json(pedidoAtualizado);
   } catch (error: any) {
     console.error('❌ Erro ao atualizar pedido:', error);
     return NextResponse.json(
