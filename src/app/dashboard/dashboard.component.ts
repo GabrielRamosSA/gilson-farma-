@@ -107,4 +107,8 @@ export class DashboardComponent implements OnInit {
   navegarParaAdicionar(): void {
     this.router.navigate(['/adicionar-produto']);
   }
+
+  navegarParaAgendamentos(): void {
+    this.router.navigate(['/agendamentos']);
+  }
 }

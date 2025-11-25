@@ -105,7 +105,14 @@
       
       <div class="campo-formulario">
         <label><i class="fas fa-phone"></i> Telefone *</label>
-        <input type="tel" [(ngModel)]="clienteForm.telefone" name="telefone" placeholder="(00) 00000-0000" required>
+        <input 
+          type="tel" 
+          [(ngModel)]="clienteForm.telefone" 
+          name="telefone" 
+          (input)="aplicarMascaraTelefone($event)"
+          placeholder="(00) 00000-0000" 
+          maxlength="15"
+          required>
       </div>
 
       <div class="campo-formulario">
@@ -282,7 +289,7 @@
         </div>
         <div class="texto-promocao">
           <h2>Promoções da Semana</h2>
-          <p>Descontos especiais em medicamentos selecionados. Entrega grátis para compras acima de R$ 50,00!</p>
+          <p>Descontos especiais em medicamentos selecionados.</p>
         </div>
         <div class="selo-promocao">
           <span>ATÉ 30% OFF</span>

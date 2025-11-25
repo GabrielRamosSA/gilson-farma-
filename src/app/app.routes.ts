@@ -6,6 +6,7 @@ import { AdminComponent } from './admin/admin/admin.component';
 import { MedicamentosComponent } from './medicamentos/medicamentos/medicamentos.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdicionarProdutoComponent } from './adicionar-produto/adicionar-produto.component';
+import { AgendamentosComponent } from './agendamentos/agendamentos.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/formulario', pathMatch: 'full' },
@@ -15,7 +16,8 @@ export const routes: Routes = [
     { path: 'admin', component: AdminComponent },
     { path: 'medicamentos', component: MedicamentosComponent },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'adicionar-produto', component: AdicionarProdutoComponent }
+    { path: 'adicionar-produto', component: AdicionarProdutoComponent },
+    { path: 'agendamentos', component: AgendamentosComponent }
 ];
 
 export class AppRoutesModule { }

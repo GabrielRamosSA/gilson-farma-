@@ -1,0 +1,128 @@
+<p-confirmDialog></p-confirmDialog>
+
+<div class="agendamentos-container">
+  <header class="agendamentos-header">
+    <div class="header-content">
+      <button class="btn-voltar" (click)="voltar()">
+        <i class="fas fa-arrow-left"></i>
+        Voltar
+      </button>
+      <div class="titulo-secao">
+        <i class="fas fa-calendar-check"></i>
+        <h1>Gerenciar Agendamentos</h1>
+      </div>
+      <div class="contador-agendamentos">
+        <span>{{ agendamentosFiltrados.length }} consultas</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="filtros-container">
+    <div class="filtro-data">
+      <label><i class="fas fa-calendar"></i> Filtrar por Data:</label>
+      <input 
+        type="date" 
+        [(ngModel)]="dataFiltro"
+        (change)="filtrarPorData()">
+    </div>
+
+    <div class="filtro-dias-semana">
+      <label><i class="fas fa-calendar-week"></i> Filtrar por Dia da Semana:</label>
+      <div class="botoes-dias">
+        <button 
+          *ngFor="let dia of diasSemana"
+          class="btn-dia"
+          [class.selecionado]="diaSemanaSelecionado === dia.valor.toString()"
+          (click)="filtrarPorDiaSemana(dia.valor)">
+          {{ dia.nome }}
+        </button>
+      </div>
+    </div>
+
+    <button class="btn-limpar-filtros" (click)="limparFiltros()">
+      <i class="fas fa-times"></i> Limpar Filtros
+    </button>
+  </div>
+
+  <div class="loading" *ngIf="carregando">
+    <i class="fas fa-spinner fa-spin"></i>
+    <p>Carregando agendamentos...</p>
+  </div>
+
+  <div class="lista-agendamentos" *ngIf="!carregando">
+    <div class="agendamento-card" *ngFor="let agendamento of agendamentosFiltrados">
+      <div class="agendamento-header">
+        <div class="info-paciente">
+          <h3><i class="fas fa-user"></i> {{ agendamento.nome }}</h3>
+          <span class="telefone"><i class="fas fa-phone"></i> {{ agendamento.telefone }}</span>
+        </div>
+        <div class="status-badge" [style.background]="getStatusColor(agendamento.status)">
+          <i class="fas {{ getStatusIcon(agendamento.status) }}"></i>
+          {{ agendamento.status }}
+        </div>
+      </div>
+
+      <div class="agendamento-body">
+        <div class="info-consulta">
+          <div class="info-item">
+            <i class="fas fa-briefcase-medical"></i>
+            <div>
+              <span class="label">Serviço:</span>
+              <span class="valor">{{ agendamento.servico }}</span>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <i class="fas fa-calendar-alt"></i>
+            <div>
+              <span class="label">Data:</span>
+              <span class="valor">{{ agendamento.data | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <i class="fas fa-clock"></i>
+            <div>
+              <span class="label">Horário:</span>
+              <span class="valor">{{ agendamento.horario }}</span>
+            </div>
+          </div>
+
+          <div class="info-item" *ngIf="agendamento.profissional">
+            <i class="fas fa-user-md"></i>
+            <div>
+              <span class="label">Profissional:</span>
+              <span class="valor">{{ agendamento.profissional }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="agendamento-footer" *ngIf="agendamento.status === 'ATIVO'">
+        <button class="btn-finalizar" (click)="finalizarConsulta(agendamento.id)">
+          <i class="fas fa-check-circle"></i> Finalizar Consulta
+        </button>
+        <button class="btn-cancelar" (click)="cancelarConsulta(agendamento.id)">
+          <i class="fas fa-times-circle"></i> Cancelar
+        </button>
+      </div>
+
+      <div class="agendamento-finalizado" *ngIf="agendamento.status === 'FINALIZADO'">
+        <i class="fas fa-check-circle"></i>
+        <span>Consulta realizada</span>
+      </div>
+
+      <div class="agendamento-cancelado" *ngIf="agendamento.status === 'CANCELADO'">
+        <i class="fas fa-times-circle"></i>
+        <span>Consulta cancelada</span>
+      </div>
+    </div>
+
+    <div class="sem-agendamentos" *ngIf="agendamentosFiltrados.length === 0">
+      <i class="fas fa-calendar-times"></i>
+      <p>Nenhum agendamento encontrado</p>
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

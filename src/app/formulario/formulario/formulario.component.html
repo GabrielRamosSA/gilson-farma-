@@ -1,91 +1,254 @@
-<p-button icon="pi pi-user" [rounded]="true" severity="info" [outlined]="true" routerLink="/login" (click)="login()" />
+<p-confirmDialog></p-confirmDialog>
 
-<div id="container-pai">
-    <div id="container">
-    
-        <form (ngSubmit)="onSubmit()" [formGroup]="formGroup" id="formulario">
-            <div id="grupo-de-input">
-
-         
-                <label for="nome"><strong>Nome Completo</strong></label>
-                <input type="text" id="nome" placeholder="Nome" pInputText formControlName="nome" />
-
-            
-                <label for="dataNascimento"><strong>Data de nascimento</strong></label>
-                <p-inputMask
-                    formControlName="dataNascimento"
-                    id="dataNascimento"
-                    placeholder="dd/mm/aaaa"
-                    mask="99/99/9999"
-                    showIcon="true"
-                    dateFormat="dd/mm/yy"
-                ></p-inputMask>
-
-                <label for="numeroTelefone"><strong>Número de telefone</strong></label>
-                <p-inputMask 
-                    id="numeroTelefone"
-                    mask="99-999999999" 
-                    formControlName="numeroTelefone" 
-                    placeholder="(99)-999999999"
-                ></p-inputMask>
-
-                <label for="bairro"><strong>Bairro</strong></label>
-                <input type="text" id="bairro" placeholder="Bairro" pInputText formControlName="bairro" />
-
-        
-                <label for="rua"><strong>Rua</strong></label>
-                <input type="text" id="rua" placeholder="Rua" pInputText formControlName="rua" />
-  
-                <label for="numeroCasa"><strong>Número da casa</strong></label>
-                <input type="text" id="numero" placeholder="Número da casa" pInputText formControlName="numero" />
-        
-                <label for="selecionarDias"><strong>Dia da consulta</strong></label>
-                <p-dropdown 
-                    id="selecionarDias"
-                    formControlName="selecionarDias" 
-                    [options]="dias"
-                    optionLabel="dia"
-                    placeholder="Dia"
-                ></p-dropdown>
-
-                <label for="selecionarHorarios"><strong>Horário da consulta</strong></label>
-                <p-dropdown 
-                    id="selecionarHorarios"
-                    formControlName="selecionarHorarios" 
-                    [options]="horarios"
-                    optionLabel="hora"
-                    placeholder="Horário"
-                ></p-dropdown>
-
-                <p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }"></p-toast>
-
-    
-                <div id="botao">
-
-                    <p-button 
-                        type="submit" 
-                        mat-flat-button 
-                        color="primary"
-                        label="Agendar consulta"
-                    ></p-button>
-
-            
-                    <p-button 
-                        mat-flat-button 
-                        color="primary" 
-                        routerLink="/tabela" 
-                        (click)="tabela()"
-                        label="Tabela de consulta"
-                    ></p-button>
-                    <p-button
-                    mat-flat-button 
-                        color="primary" 
-                        routerLink="/medicamento" 
-                        (click)="medicamentos()"
-                        label="Medicamentos">
-                    </p-button>
-                </div>
-            </div>
-        </form>
+<div class="agendamento-container">
+  <!-- Header -->
+  <header class="agendamento-header">
+    <div class="header-content">
+      <div class="logo-section">
+        <i class="fas fa-pills"></i>
+        <h1>Farma Gilson - Agendamentos</h1>
+      </div>
+      <div class="header-actions">
+        <button class="btn-voltar" (click)="medicamentos()">
+          <i class="fas fa-pills"></i> Medicamentos
+        </button>
+        <button class="btn-voltar" (click)="login()">
+          <i class="fas fa-user-shield"></i> Admin
+        </button>
+      </div>
     </div>
+  </header>
+
+  <!-- Navegação de Abas -->
+  <div class="abas-navegacao">
+    <button 
+      class="aba-btn"
+      [class.ativa]="abaAtiva === 'agendar'"
+      (click)="mudarAba('agendar')">
+      <i class="fas fa-calendar-plus"></i>
+      <span>Agendar Consulta</span>
+    </button>
+    <button 
+      class="aba-btn"
+      [class.ativa]="abaAtiva === 'consultar'"
+      (click)="mudarAba('consultar')">
+      <i class="fas fa-clipboard-list"></i>
+      <span>Meus Agendamentos</span>
+    </button>
+  </div>
+
+  <!-- Conteúdo da Aba Agendar -->
+  <div class="aba-conteudo" *ngIf="abaAtiva === 'agendar'">
+    <div class="formulario-agendamento">
+      <h2><i class="fas fa-calendar-check"></i> Agendar Nova Consulta</h2>
+
+      <!-- Serviços Disponíveis -->
+      <div class="secao-servicos">
+        <h3><i class="fas fa-briefcase-medical"></i> Escolha o Serviço</h3>
+        <div class="grade-servicos">
+          <div 
+            class="card-servico"
+            *ngFor="let servico of servicos"
+            [class.selecionado]="servicoSelecionado === servico.nome"
+            (click)="servicoSelecionado = servico.nome">
+            <i class="fas {{servico.icone}}"></i>
+            <h4>{{servico.nome}}</h4>
+            <div class="servico-info">
+              <span class="duracao"><i class="fas fa-clock"></i> {{servico.duracao}}</span>
+              <span class="preco">{{servico.preco}}</span>
+            </div>
+            <div class="check-selecionado" *ngIf="servicoSelecionado === servico.nome">
+              <i class="fas fa-check-circle"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dados do Paciente -->
+      <div class="secao-dados">
+        <h3><i class="fas fa-user"></i> Seus Dados</h3>
+        <div class="campos-formulario">
+          <div class="campo">
+            <label><i class="fas fa-user"></i> Nome Completo *</label>
+            <input 
+              type="text" 
+              [(ngModel)]="nome"
+              placeholder="Digite seu nome completo"
+              required>
+          </div>
+
+          <div class="campo">
+            <label><i class="fas fa-phone"></i> Telefone *</label>
+            <input 
+              type="tel" 
+              name="telefone"
+              [(ngModel)]="telefone"
+              (input)="aplicarMascaraTelefone($event)"
+              placeholder="(00) 00000-0000"
+              maxlength="15"
+              required>
+          </div>
+        </div>
+      </div>
+
+      <!-- Escolha de Data e Horário -->
+      <div class="secao-data-horario">
+        <h3><i class="fas fa-calendar-alt"></i> Data e Horário</h3>
+        
+        <div class="campo">
+          <label><i class="fas fa-calendar"></i> Escolha a Data *</label>
+          <input 
+            type="date" 
+            [(ngModel)]="dataSelecionada"
+            (change)="onDataChange()"
+            [min]="dataAtual.toISOString().split('T')[0]"
+            required>
+        </div>
+
+        <div class="campo" *ngIf="dataSelecionada">
+          <label><i class="fas fa-clock"></i> Escolha o Horário *</label>
+          <div class="grade-horarios" *ngIf="!carregandoHorarios">
+            <button 
+              class="btn-horario"
+              *ngFor="let horario of horariosDisponiveis"
+              [class.selecionado]="horarioSelecionado === horario"
+              (click)="horarioSelecionado = horario">
+              {{horario}}
+            </button>
+          </div>
+          <div class="loading" *ngIf="carregandoHorarios">
+            <i class="fas fa-spinner fa-spin"></i> Carregando horários...
+          </div>
+          <p class="info-horarios" *ngIf="!carregandoHorarios && horariosDisponiveis.length === 0">
+            <i class="fas fa-info-circle"></i> Nenhum horário disponível para esta data.
+          </p>
+        </div>
+      </div>
+
+      <!-- Resumo do Agendamento -->
+      <div class="resumo-agendamento" *ngIf="servicoSelecionado && nome && telefone && dataSelecionada && horarioSelecionado">
+        <h3><i class="fas fa-clipboard-check"></i> Resumo do Agendamento</h3>
+        <div class="resumo-conteudo">
+          <div class="resumo-item">
+            <i class="fas fa-briefcase-medical"></i>
+            <div>
+              <span class="label">Serviço:</span>
+              <span class="valor">{{servicoSelecionado}}</span>
+            </div>
+          </div>
+          <div class="resumo-item">
+            <i class="fas fa-user"></i>
+            <div>
+              <span class="label">Paciente:</span>
+              <span class="valor">{{nome}}</span>
+            </div>
+          </div>
+          <div class="resumo-item">
+            <i class="fas fa-calendar"></i>
+            <div>
+              <span class="label">Data:</span>
+              <span class="valor">{{dataSelecionada | date:'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+          <div class="resumo-item">
+            <i class="fas fa-clock"></i>
+            <div>
+              <span class="label">Horário:</span>
+              <span class="valor">{{horarioSelecionado}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botão Confirmar -->
+      <div class="acoes-formulario">
+        <button 
+          class="btn-confirmar"
+          (click)="agendarConsulta()"
+          [disabled]="!servicoSelecionado || !nome || !telefone || !dataSelecionada || !horarioSelecionado">
+          <i class="fas fa-check"></i> Confirmar Agendamento
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conteúdo da Aba Consultar -->
+  <div class="aba-conteudo" *ngIf="abaAtiva === 'consultar'">
+    <div class="consulta-agendamentos">
+      <h2><i class="fas fa-search"></i> Consultar Agendamentos</h2>
+
+      <!-- Buscar por Telefone -->
+      <div class="busca-telefone">
+        <div class="campo">
+          <label><i class="fas fa-phone"></i> Digite seu Telefone</label>
+          <div class="input-group">
+            <input 
+              type="tel" 
+              name="telefoneConsulta"
+              [(ngModel)]="telefoneConsulta"
+              (input)="aplicarMascaraTelefone($event)"
+              placeholder="(00) 00000-0000"
+              maxlength="15"
+              (keyup.enter)="buscarAgendamentos()">
+            <button 
+              class="btn-buscar"
+              (click)="buscarAgendamentos()"
+              [disabled]="carregandoConsulta">
+              <i class="fas fa-search" *ngIf="!carregandoConsulta"></i>
+              <i class="fas fa-spinner fa-spin" *ngIf="carregandoConsulta"></i>
+              {{carregandoConsulta ? 'Buscando...' : 'Buscar'}}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lista de Agendamentos -->
+      <div class="lista-agendamentos" *ngIf="agendamentosCliente.length > 0">
+        <h3><i class="fas fa-list"></i> Seus Agendamentos ({{agendamentosCliente.length}})</h3>
+        
+        <div class="agendamento-card" *ngFor="let agendamento of agendamentosCliente">
+          <div class="agendamento-header">
+            <div class="agendamento-status" [style.background]="getStatusColor(agendamento.status)">
+              {{agendamento.status}}
+            </div>
+            <div class="agendamento-data">
+              <i class="fas fa-calendar"></i>
+              {{agendamento.data | date:'dd/MM/yyyy'}} às {{agendamento.horario}}
+            </div>
+          </div>
+
+          <div class="agendamento-body">
+            <div class="info-row">
+              <i class="fas fa-briefcase-medical"></i>
+              <strong>Serviço:</strong> {{agendamento.servico}}
+            </div>
+            <div class="info-row" *ngIf="agendamento.profissional">
+              <i class="fas fa-user-md"></i>
+              <strong>Profissional:</strong> {{agendamento.profissional}}
+            </div>
+            <div class="info-row">
+              <i class="fas fa-user"></i>
+              <strong>Paciente:</strong> {{agendamento.nome}}
+            </div>
+          </div>
+
+          <div class="agendamento-footer" *ngIf="agendamento.status === 'ATIVO'">
+            <button 
+              class="btn-cancelar-agendamento"
+              (click)="cancelarAgendamento(agendamento.id)">
+              <i class="fas fa-times"></i> Cancelar Agendamento
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nenhum Agendamento Encontrado -->
+      <div class="sem-agendamentos" *ngIf="!carregandoConsulta && telefoneConsulta && agendamentosCliente.length === 0">
+        <i class="fas fa-calendar-times"></i>
+        <p>Nenhum agendamento encontrado para este telefone.</p>
+      </div>
+    </div>
+  </div>
 </div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

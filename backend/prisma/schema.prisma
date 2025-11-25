@@ -44,3 +44,16 @@ model Pedido {
 
   @@map("pedidos")
 }
+
+model Agendamento {
+  id            String   @id @default(uuid())
+  nome          String
+  telefone      String
+  servico       String
+  profissional  String?
+  data          DateTime
+  horario       String
+  status        String   @default("ATIVO") // ATIVO, FINALIZADO, CANCELADO
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

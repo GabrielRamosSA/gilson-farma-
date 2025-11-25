@@ -1,19 +1,60 @@
-<p-toast></p-toast>
-<div id="container-pai">
-  <div id="container">
-    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" id="formulario">
-      <div id="grupo-de-input">
-        <label for="usuario"><strong>Usuário</strong></label>
-        <input type="text" id="usuario" placeholder="Usuário" pInputText formControlName="usuario" />
-
-        <label for="senha"><strong>Senha</strong></label>
-        <input type="password" id="senha" placeholder="Senha" pInputText formControlName="senha" />
-
-        <div id="botao" style="margin-top: 20px;">
-          <button pButton type="submit" label="Entrar"></button>
-          <button pButton type="button" label="Voltar" class="p-button-secondary" (click)="voltar()"></button>
+<div class="login-container">
+  <div class="login-box">
+    <div class="login-header">
+      <div class="logo-container">
+        <div class="logo-icon">
+          <i class="fas fa-pills"></i>
         </div>
       </div>
+      <h1>Farma Gilson</h1>
+      <p>Acesso Administrativo</p>
+    </div>
+
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label>
+          <i class="fas fa-user"></i>
+          Usuário
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            formControlName="usuario" 
+            placeholder="Digite seu usuário"
+            required>
+          <i class="fas fa-user input-icon"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <i class="fas fa-lock"></i>
+          Senha
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="password" 
+            formControlName="senha" 
+            placeholder="Digite sua senha"
+            required>
+          <i class="fas fa-lock input-icon"></i>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-login" [disabled]="formGroup.invalid">
+        <i class="fas fa-sign-in-alt"></i>
+        Entrar
+      </button>
     </form>
+
+    <div class="login-footer">
+      <button type="button" class="btn-voltar" (click)="voltar()">
+        <i class="fas fa-arrow-left"></i>
+        Voltar ao Início
+      </button>
+    </div>
   </div>
 </div>
+
+<p-toast></p-toast>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

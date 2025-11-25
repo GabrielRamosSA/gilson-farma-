@@ -1,0 +1,508 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.agendamentos-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  padding-bottom: 3rem;
+}
+
+.agendamentos-header {
+  background: rgba(30, 41, 59, 0.8);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  padding: 1.5rem 2rem;
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.btn-voltar {
+  padding: 0.75rem 1.5rem;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  border-radius: 10px;
+  color: #60a5fa;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-voltar:hover {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: #60a5fa;
+  transform: translateX(-5px);
+}
+
+.titulo-secao {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.titulo-secao i {
+  font-size: 1.5rem;
+  color: #60a5fa;
+}
+
+.titulo-secao h1 {
+  color: #f1f5f9;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.contador-agendamentos {
+  background: rgba(59, 130, 246, 0.15);
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.contador-agendamentos span {
+  color: #60a5fa;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.filtros-container {
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: 15px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.filtro-data,
+.filtro-dias-semana {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.filtro-data label,
+.filtro-dias-semana label {
+  color: #f1f5f9;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filtro-data label i,
+.filtro-dias-semana label i {
+  color: #60a5fa;
+}
+
+.filtro-data input {
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 2px solid rgba(148, 163, 184, 0.2);
+  border-radius: 10px;
+  color: #f1f5f9;
+  font-size: 1rem;
+  max-width: 300px;
+  transition: all 0.3s;
+}
+
+.filtro-data input:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.botoes-dias {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-dia {
+  padding: 0.875rem 1.5rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 2px solid rgba(148, 163, 184, 0.2);
+  border-radius: 10px;
+  color: #cbd5e1;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-dia:hover {
+  border-color: #60a5fa;
+  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.btn-dia.selecionado {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-limpar-filtros {
+  padding: 0.875rem 1.5rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 2px solid rgba(239, 68, 68, 0.3);
+  border-radius: 10px;
+  color: #ef4444;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+}
+
+.btn-limpar-filtros:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+}
+
+.loading {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #60a5fa;
+}
+
+.loading i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.loading p {
+  font-size: 1.2rem;
+  color: #cbd5e1;
+}
+
+.lista-agendamentos {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.agendamento-card {
+  background: rgba(30, 41, 59, 0.6);
+  border: 2px solid rgba(148, 163, 184, 0.1);
+  border-radius: 15px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+
+.agendamento-card:hover {
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.agendamento-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid rgba(148, 163, 184, 0.1);
+}
+
+.info-paciente h3 {
+  color: #f1f5f9;
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.info-paciente h3 i {
+  color: #60a5fa;
+}
+
+.telefone {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.telefone i {
+  color: #60a5fa;
+}
+
+.status-badge {
+  padding: 0.75rem 1.25rem;
+  border-radius: 25px;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.agendamento-body {
+  margin-bottom: 1.5rem;
+}
+
+.info-consulta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.4);
+  border-left: 3px solid #60a5fa;
+  border-radius: 8px;
+}
+
+.info-item i {
+  font-size: 1.5rem;
+  color: #60a5fa;
+  margin-top: 0.25rem;
+}
+
+.info-item .label {
+  display: block;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+}
+
+.info-item .valor {
+  display: block;
+  color: #f1f5f9;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.agendamento-footer {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding-top: 1.5rem;
+  border-top: 2px solid rgba(148, 163, 184, 0.1);
+}
+
+.btn-finalizar,
+.btn-cancelar {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-finalizar {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn-finalizar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+}
+
+.btn-cancelar {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 2px solid rgba(239, 68, 68, 0.3);
+}
+
+.btn-cancelar:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+}
+
+.agendamento-finalizado,
+.agendamento-cancelado {
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  border-top: 2px solid rgba(148, 163, 184, 0.1);
+  padding-top: 1.5rem;
+}
+
+.agendamento-finalizado {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.agendamento-cancelado {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.sem-agendamentos {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #64748b;
+}
+
+.sem-agendamentos i {
+  font-size: 4rem;
+  color: #475569;
+  margin-bottom: 1.5rem;
+}
+
+.sem-agendamentos p {
+  font-size: 1.2rem;
+}
+
+::ng-deep .p-confirm-dialog {
+  .p-dialog-header {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+    padding: 1.5rem;
+  }
+
+  .p-dialog-content {
+    background: rgba(30, 41, 59, 0.95);
+    color: #f1f5f9;
+    padding: 2rem;
+    font-size: 1.1rem;
+  }
+
+  .p-dialog-footer {
+    background: rgba(30, 41, 59, 0.95);
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+    padding: 1.5rem;
+    border-radius: 0 0 12px 12px;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .pi-check-circle {
+    color: #10b981;
+    font-size: 3rem;
+  }
+
+  .pi-exclamation-triangle {
+    color: #f59e0b;
+    font-size: 3rem;
+  }
+
+  .p-button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+
+  .p-button-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: none;
+  }
+
+  .p-button-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+  }
+
+  .p-button-danger {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    border: none;
+  }
+
+  .p-button-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+  }
+
+  .p-button-secondary {
+    background: rgba(148, 163, 184, 0.2);
+    border: 2px solid rgba(148, 163, 184, 0.4);
+    color: #cbd5e1;
+  }
+
+  .p-button-secondary:hover {
+    background: rgba(148, 163, 184, 0.3);
+    border-color: #cbd5e1;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filtros-container {
+    padding: 1.5rem;
+  }
+
+  .info-consulta {
+    grid-template-columns: 1fr;
+  }
+
+  .agendamento-footer {
+    flex-direction: column;
+  }
+
+  .btn-finalizar,
+  .btn-cancelar {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .botoes-dias {
+    flex-direction: column;
+  }
+
+  .btn-dia {
+    width: 100%;
+  }
+}

@@ -55,14 +55,12 @@ export class MedicamentosComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.carregarProdutos();
     
-    // Atualizar produtos a cada 30 segundos automaticamente
     this.intervalId = setInterval(() => {
       this.carregarProdutosSilencioso();
-    }, 30000); // 30 segundos
+    }, 30000);
   }
 
   ngOnDestroy() {
-    // Limpar intervalo quando sair da página
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
@@ -74,21 +72,16 @@ export class MedicamentosComponent implements OnInit, OnDestroy {
       next: (produtos) => {
         this.produtos = produtos;
         this.carregandoProdutos = false;
-        this.toastr.success('Produtos carregados com sucesso!', 'Sucesso', {
-          timeOut: 2000
-        });
       },
       error: (error) => {
         console.error('Erro ao carregar produtos:', error);
         this.toastr.error('Erro ao carregar produtos. Usando dados locais.', 'Erro');
         this.carregandoProdutos = false;
-        // Mantém a lista local como fallback se a API falhar
       }
     });
   }
 
   carregarProdutosSilencioso() {
-    // Carrega sem mostrar mensagem de sucesso
     this.produtosService.getProdutos().subscribe({
       next: (produtos) => {
         this.produtos = produtos;
@@ -187,7 +180,6 @@ export class MedicamentosComponent implements OnInit, OnDestroy {
     });
   }
 
-
   adicionarAoCarrinho(produto: string) {
     const index = this.carrinho.findIndex(p => p.nome === produto);
     if (index >= 0) {
@@ -224,10 +216,6 @@ export class MedicamentosComponent implements OnInit, OnDestroy {
   }
 
   voltar() {
-    this.toastr.info('Retornando à página inicial', 'Navegação', {
-      timeOut: 2000,
-      progressBar: true
-    });
     this.router.navigate(['/formulario']); 
   }
 
@@ -286,7 +274,6 @@ export class MedicamentosComponent implements OnInit, OnDestroy {
   gerarQRCodePix() {
     const valorTotal = this.calcularPrecoTotal();
     
-    // Preparar dados do pedido
     const descricaoPedido = JSON.stringify({
       cliente: this.clienteForm.nome,
       email: this.clienteForm.email,
@@ -317,7 +304,6 @@ export class MedicamentosComponent implements OnInit, OnDestroy {
         
         this.toastr.success('PIX gerado com sucesso!', 'Mercado Pago');
         
-        // Iniciar verificação do pagamento
         this.verificarPagamentoAutomatico();
       },
       error: (error) => {
@@ -330,7 +316,6 @@ export class MedicamentosComponent implements OnInit, OnDestroy {
   verificarPagamentoAutomatico() {
     if (!this.pagamentoId) return;
 
-    // Verificar a cada 5 segundos se o pagamento foi aprovado
     const intervalo = setInterval(() => {
       if (!this.pagamentoId) {
         clearInterval(intervalo);
@@ -351,9 +336,8 @@ export class MedicamentosComponent implements OnInit, OnDestroy {
           console.error('Erro ao verificar pagamento:', error);
         }
       });
-    }, 5000); // Verifica a cada 5 segundos
+    }, 5000);
 
-    // Parar de verificar após 10 minutos
     setTimeout(() => {
       clearInterval(intervalo);
     }, 600000);
@@ -368,7 +352,6 @@ export class MedicamentosComponent implements OnInit, OnDestroy {
   }
 
   confirmarPagamentoPix() {
-    // Botão "Já Paguei" - força a finalização
     this.finalizarPedido();
   }
 
@@ -380,13 +363,12 @@ export class MedicamentosComponent implements OnInit, OnDestroy {
       endereco: this.clienteForm.endereco,
       tipoEntrega: this.clienteForm.tipoEntrega,
       metodoPagamento: this.clienteForm.metodoPagamento,
-      produtos: this.carrinho, // Envia array de produtos
+      produtos: this.carrinho,
       valor: this.valorTotalPedido
     };
 
     console.log('📝 Salvando pedido no banco:', pedidoData);
 
-    // Usar subscribe para aguardar a resposta
     this.pedidosService.adicionarPedidoComRetorno(pedidoData).subscribe({
       next: (pedidoCriado) => {
         console.log('✅ Pedido salvo com sucesso:', pedidoCriado);
@@ -416,4 +398,21 @@ export class MedicamentosComponent implements OnInit, OnDestroy {
       return total;
     }, 0);
  }
+
+ aplicarMascaraTelefone(event: any) {
+    let valor = event.target.value.replace(/\D/g, '');
+    
+    if (valor.length <= 11) {
+      if (valor.length <= 2) {
+        valor = valor.replace(/^(\d{0,2})/, '($1');
+      } else if (valor.length <= 7) {
+        valor = valor.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+      } else {
+        valor = valor.replace(/^(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+      }
+    }
+    
+    event.target.value = valor;
+    this.clienteForm.telefone = valor;
+  }
 }
