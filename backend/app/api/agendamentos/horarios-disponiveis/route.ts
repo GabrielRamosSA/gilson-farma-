@@ -15,7 +15,6 @@ export async function GET(request: NextRequest) {
 
     const data = new Date(dataStr);
     
-    // Buscar agendamentos ativos para essa data
     const agendamentos = await prisma.agendamento.findMany({
       where: {
         data: {

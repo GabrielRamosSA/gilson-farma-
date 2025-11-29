@@ -23,7 +23,6 @@ export async function POST(request: NextRequest) {
 
       if (paymentInfo.body.status === 'approved') {
         console.log('✅ Pagamento APROVADO!');
-        // Aqui você pode criar o pedido automaticamente no banco
       }
     }
 

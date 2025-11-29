@@ -7,7 +7,7 @@ type RouteContext = {
   };
 };
 
-// GET - Buscar pedido por ID
+
 export async function GET(
   request: NextRequest,
   context: RouteContext
@@ -36,7 +36,6 @@ export async function GET(
   }
 }
 
-// PATCH - Atualizar status do pedido
 export async function PATCH(
   request: NextRequest,
   context: RouteContext
@@ -48,9 +47,9 @@ export async function PATCH(
     console.log('🔄 Atualizando pedido:', id);
     console.log('Novo status:', body.status);
 
-    // Se o status for "aprovado", atualizar o estoque dos produtos
+  
     if (body.status === 'aprovado') {
-      // Buscar o pedido para pegar os produtos
+    
       const pedido = await prisma.pedido.findUnique({
         where: { id }
       });
@@ -62,11 +61,11 @@ export async function PATCH(
         );
       }
 
-      // Atualizar estoque de cada produto
+      
       const produtos = pedido.produtos as any[];
       
       for (const item of produtos) {
-        // Buscar o produto pelo nome
+       
         const produto = await prisma.produto.findFirst({
           where: { nome: item.nome }
         });
@@ -104,7 +103,7 @@ export async function PATCH(
   }
 }
 
-// DELETE - Deletar pedido
+
 export async function DELETE(
   request: NextRequest,
   context: RouteContext

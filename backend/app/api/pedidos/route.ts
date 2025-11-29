@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-// GET - Buscar todos os pedidos
+
 export async function GET(request: NextRequest) {
   try {
     const pedidos = await prisma.pedido.findMany({
@@ -18,7 +18,6 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Criar novo pedido
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();

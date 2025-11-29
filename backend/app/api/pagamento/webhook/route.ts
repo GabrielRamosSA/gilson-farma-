@@ -7,18 +7,13 @@ export async function POST(request: NextRequest) {
     
     console.log('Webhook recebido:', body);
 
-    // Verificar o tipo de notificação
     if (body.type === 'payment') {
       const paymentId = body.data.id;
       
-      // Buscar informações do pagamento
       const payment = await mercadopago.payment.findById(paymentId);
       
       console.log('Status do pagamento:', payment.body.status);
       console.log('Referência externa:', payment.body.external_reference);
-
-      // Aqui você pode atualizar o pedido no banco de dados
-      // Exemplo: await prisma.pedido.update(...)
 
       switch (payment.body.status) {
         case 'approved':

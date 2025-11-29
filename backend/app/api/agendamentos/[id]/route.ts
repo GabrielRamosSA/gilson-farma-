@@ -7,7 +7,6 @@ type RouteContext = {
   };
 };
 
-// PATCH - Atualizar status do agendamento
 export async function PATCH(
   request: NextRequest,
   context: RouteContext
@@ -34,7 +33,6 @@ export async function PATCH(
   }
 }
 
-// DELETE - Deletar agendamento
 export async function DELETE(
   request: NextRequest,
   context: RouteContext

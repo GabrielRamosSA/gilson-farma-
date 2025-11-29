@@ -14,14 +14,14 @@ export async function GET(request: NextRequest) {
     const fimOntem = new Date(ontem);
     fimOntem.setHours(23, 59, 59, 999);
 
-    // Mês atual
+    
     const inicioMes = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
     
-    // Mês anterior
+    
     const inicioMesAnterior = new Date(hoje.getFullYear(), hoje.getMonth() - 1, 1);
     const fimMesAnterior = new Date(hoje.getFullYear(), hoje.getMonth(), 0, 23, 59, 59, 999);
 
-    // Vendas de hoje
+    
     const vendasHoje = await prisma.pedido.aggregate({
       where: {
         status: 'aprovado',
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
       }
     });
 
-    // Vendas de ontem
+   
     const vendasOntem = await prisma.pedido.aggregate({
       where: {
         status: 'aprovado',
@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
       }
     });
 
-    // Vendas do mês atual
+   
     const vendasMes = await prisma.pedido.aggregate({
       where: {
         status: 'aprovado',
@@ -62,7 +62,7 @@ export async function GET(request: NextRequest) {
       }
     });
 
-    // Vendas do mês anterior
+ 
     const vendasMesAnterior = await prisma.pedido.aggregate({
       where: {
         status: 'aprovado',
@@ -99,7 +99,7 @@ export async function GET(request: NextRequest) {
       ? ((valorMesAtual - valorMesAnterior) / valorMesAnterior) * 100 
       : valorMesAtual > 0 ? 100 : 0;
 
-    // Lucro mensal (assumindo margem de 30%)
+    
     const lucroMensal = valorMesAtual * 0.3;
 
     return NextResponse.json({

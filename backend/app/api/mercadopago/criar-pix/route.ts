@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
         last_name: body.payer.last_name || '',
         identification: {
           type: 'CPF',
-          number: '08336053301' // CPF do farmacêutico
+          number: '08336053301' 
         }
       }
     };

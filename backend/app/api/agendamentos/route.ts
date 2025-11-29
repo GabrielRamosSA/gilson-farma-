@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-// GET - Buscar agendamentos por telefone
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -49,7 +49,6 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Criar novo agendamento
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
