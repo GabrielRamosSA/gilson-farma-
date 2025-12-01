@@ -252,14 +252,24 @@
             </div>
           </div>
           
-          <button 
-            class="btn-remover-produto"
-            type="button"
-            (click)="removerProduto(produto.id, produto.nome)"
-            [disabled]="carregandoRemocao">
-            <i class="fas fa-trash-alt"></i>
-            Remover
-          </button>
+          <div class="produto-acoes">
+            <button 
+              class="btn-editar-produto"
+              type="button"
+              (click)="abrirModalEdicao(produto)"
+              [disabled]="carregandoRemocao">
+              <i class="fas fa-edit"></i>
+              Editar
+            </button>
+            <button 
+              class="btn-remover-produto"
+              type="button"
+              (click)="removerProduto(produto.id, produto.nome)"
+              [disabled]="carregandoRemocao">
+              <i class="fas fa-trash-alt"></i>
+              Remover
+            </button>
+          </div>
         </div>
 
         <div class="sem-produtos" *ngIf="produtosFiltradosParaRemover.length === 0">
@@ -270,6 +280,106 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal de Edição -->
+  <p-dialog 
+    [(visible)]="mostrarModalEdicao" 
+    [modal]="true"
+    [closable]="true"
+    [style]="{width: '700px', maxHeight: '90vh'}"
+    styleClass="modal-edicao"
+    header="Editar Produto">
+    
+    <div class="modal-edicao-body" *ngIf="produtoEditando">
+      <form class="form-edicao">
+        <!-- Upload de Imagem -->
+        <div class="campo-edicao">
+          <label><i class="fas fa-image"></i> Imagem do Produto</label>
+          <div class="preview-edicao" *ngIf="imagemPreviewEdicao">
+            <img [src]="imagemPreviewEdicao" alt="Preview">
+            <button type="button" class="btn-trocar-imagem" (click)="abrirSeletorImagem()">
+              <i class="fas fa-sync-alt"></i> Trocar Imagem
+            </button>
+          </div>
+          <input 
+            #fileInput
+            type="file" 
+            accept="image/*" 
+            (change)="onImagemEdicaoSelecionada($event)"
+            style="display: none">
+        </div>
+
+        <!-- Nome -->
+        <div class="campo-edicao">
+          <label><i class="fas fa-tag"></i> Nome do Produto</label>
+          <input 
+            type="text" 
+            [(ngModel)]="produtoEditando.nome"
+            name="nomeEdicao"
+            placeholder="Nome do produto">
+        </div>
+
+        <!-- Preço Atual -->
+        <div class="campo-edicao">
+          <label><i class="fas fa-dollar-sign"></i> Preço Atual</label>
+          <input 
+            type="text" 
+            [(ngModel)]="produtoEditando.preco"
+            name="precoEdicao"
+            (blur)="formatarPrecoEdicao('preco')"
+            (change)="calcularDescontoEdicao()"
+            placeholder="R$ 0,00">
+        </div>
+
+        <!-- Preço Anterior -->
+        <div class="campo-edicao">
+          <label><i class="fas fa-tag"></i> Preço Anterior (Promoção)</label>
+          <input 
+            type="text" 
+            [(ngModel)]="produtoEditando.precoAntigo"
+            name="precoAntigoEdicao"
+            (blur)="formatarPrecoEdicao('precoAntigo')"
+            (change)="calcularDescontoEdicao()"
+            placeholder="R$ 0,00">
+        </div>
+
+        <!-- Estoque -->
+        <div class="campo-edicao">
+          <label><i class="fas fa-box"></i> Quantidade em Estoque</label>
+          <input 
+            type="number" 
+            [(ngModel)]="produtoEditando.quantidade"
+            name="quantidadeEdicao"
+            min="0"
+            placeholder="0">
+        </div>
+
+        <div class="info-promocao-edicao" *ngIf="produtoEditando.promocao">
+          <i class="fas fa-percentage"></i>
+          <span>Desconto automático: {{ produtoEditando.desconto }}%</span>
+        </div>
+      </form>
+    </div>
+    
+    <ng-template pTemplate="footer">
+      <div class="modal-footer-custom">
+        <p-button 
+          label="Cancelar" 
+          icon="pi pi-times" 
+          (onClick)="fecharModalEdicao()"
+          styleClass="p-button-text p-button-secondary"
+          [disabled]="carregandoEdicao">
+        </p-button>
+        <p-button 
+          label="Salvar Alterações" 
+          icon="pi pi-check" 
+          (onClick)="salvarEdicao()"
+          styleClass="p-button-success"
+          [loading]="carregandoEdicao">
+        </p-button>
+      </div>
+    </ng-template>
+  </p-dialog>
 
   <!-- Modal de Confirmação PrimeNG -->
   <p-dialog 

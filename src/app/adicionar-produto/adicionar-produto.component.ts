@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,6 +15,7 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './adicionar-produto.component.css'
 })
 export class AdicionarProdutoComponent implements OnInit {
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   produto = {
     nome: '',
     imagem: '',
@@ -43,6 +44,12 @@ export class AdicionarProdutoComponent implements OnInit {
   // Propriedades para o modal de confirmação
   mostrarModalConfirmacao = false;
   produtoParaRemover: { id: string, nome: string } | null = null;
+
+  // Propriedades para edição
+  mostrarModalEdicao = false;
+  produtoEditando: any = null;
+  imagemPreviewEdicao: string | null = null;
+  carregandoEdicao = false;
 
   constructor(
     private router: Router,
@@ -232,6 +239,101 @@ export class AdicionarProdutoComponent implements OnInit {
   fecharModalConfirmacao() {
     this.mostrarModalConfirmacao = false;
     this.produtoParaRemover = null;
+  }
+
+  abrirModalEdicao(produto: any) {
+    this.produtoEditando = { ...produto };
+    this.imagemPreviewEdicao = produto.imagem;
+    this.mostrarModalEdicao = true;
+  }
+
+  fecharModalEdicao() {
+    this.mostrarModalEdicao = false;
+    this.produtoEditando = null;
+    this.imagemPreviewEdicao = null;
+  }
+
+  abrirSeletorImagem() {
+    if (this.fileInput) {
+      this.fileInput.nativeElement.click();
+    }
+  }
+
+  onImagemEdicaoSelecionada(event: any) {
+    const arquivo = event.target.files[0];
+    if (arquivo) {
+      if (arquivo.size > 5000000) {
+        this.toastr.error('Imagem muito grande! Máximo 5MB', 'Erro');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imagemPreviewEdicao = e.target.result;
+        if (this.produtoEditando) {
+          this.produtoEditando.imagem = e.target.result;
+        }
+      };
+      reader.readAsDataURL(arquivo);
+    }
+  }
+
+  formatarPrecoEdicao(campo: 'preco' | 'precoAntigo') {
+    if (!this.produtoEditando) return;
+    
+    let valor = this.produtoEditando[campo]?.replace(/\D/g, '') || '';
+    if (valor) {
+      valor = (parseInt(valor) / 100).toFixed(2);
+      this.produtoEditando[campo] = `R$ ${valor.replace('.', ',')}`;
+    }
+  }
+
+  calcularDescontoEdicao() {
+    if (!this.produtoEditando) return;
+    
+    if (this.produtoEditando.preco && this.produtoEditando.precoAntigo) {
+      const precoAtual = parseFloat(this.produtoEditando.preco.replace('R$', '').replace(',', '.').trim());
+      const precoAntigo = parseFloat(this.produtoEditando.precoAntigo.replace('R$', '').replace(',', '.').trim());
+      
+      if (precoAntigo > precoAtual) {
+        this.produtoEditando.desconto = Math.round(((precoAntigo - precoAtual) / precoAntigo) * 100);
+        this.produtoEditando.promocao = true;
+      } else {
+        this.produtoEditando.desconto = 0;
+        this.produtoEditando.promocao = false;
+      }
+    }
+  }
+
+  salvarEdicao() {
+    if (!this.produtoEditando) return;
+
+    this.carregandoEdicao = true;
+
+    const palavrasChave = this.produtosService.gerarPalavrasChave(
+      this.produtoEditando.nome,
+      this.produtoEditando.descricao,
+      this.produtoEditando.categoria
+    );
+
+    const produtoAtualizado = {
+      ...this.produtoEditando,
+      palavrasChave: palavrasChave
+    };
+
+    this.produtosService.editarProduto(this.produtoEditando.id, produtoAtualizado).subscribe({
+      next: (response) => {
+        this.toastr.success('Produto atualizado com sucesso!', 'Sucesso');
+        this.carregarProdutosParaRemover();
+        this.carregandoEdicao = false;
+        this.fecharModalEdicao();
+      },
+      error: (error) => {
+        console.error('Erro ao atualizar produto:', error);
+        this.toastr.error('Erro ao atualizar produto. Tente novamente.', 'Erro');
+        this.carregandoEdicao = false;
+      }
+    });
   }
 
   voltar() {

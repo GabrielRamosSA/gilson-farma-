@@ -51,6 +51,14 @@ export class ProdutosService {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
+  editarProduto(id: string, produto: Produto): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, produto);
+  }
+
+  getProdutoPorId(id: string): Observable<Produto> {
+    return this.http.get<Produto>(`${this.apiUrl}/${id}`);
+  }
+
   gerarPalavrasChave(nome: string, descricao: string, categoria: string): string[] {
     const palavras = new Set<string>();
     

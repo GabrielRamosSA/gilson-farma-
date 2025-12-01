@@ -8,7 +8,6 @@ export async function GET(request: NextRequest) {
     const fimHoje = new Date();
     fimHoje.setHours(23, 59, 59, 999);
 
-    // Ontem
     const ontem = new Date(hoje);
     ontem.setDate(ontem.getDate() - 1);
     const fimOntem = new Date(ontem);
@@ -84,7 +83,7 @@ export async function GET(request: NextRequest) {
 
     const totalProdutos = await prisma.produto.count();
 
-    // Cálculo das porcentagens
+  
     const valorHoje = vendasHoje._sum.valorTotal || 0;
     const valorOntem = vendasOntem._sum.valorTotal || 0;
     

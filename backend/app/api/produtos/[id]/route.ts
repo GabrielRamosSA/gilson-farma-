@@ -51,3 +51,41 @@ export async function GET(
     );
   }
 }
+
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const { id } = params;
+    const body = await request.json();
+
+    const produtoAtualizado = await prisma.produto.update({
+      where: { id },
+      data: {
+        nome: body.nome,
+        imagem: body.imagem,
+        descricao: body.descricao,
+        preco: body.preco,
+        precoAntigo: body.precoAntigo,
+        quantidade: body.quantidade,
+        promocao: body.promocao,
+        desconto: body.desconto,
+        tipo: body.tipo,
+        categoria: body.categoria,
+        palavrasChave: body.palavrasChave,
+      }
+    });
+
+    return NextResponse.json({
+      message: 'Produto atualizado com sucesso',
+      produto: produtoAtualizado
+    });
+  } catch (error) {
+    console.error('Erro ao atualizar produto:', error);
+    return NextResponse.json(
+      { error: 'Erro ao atualizar produto' },
+      { status: 500 }
+    );
+  }
+}
